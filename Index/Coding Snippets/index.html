@@ -86,6 +86,20 @@
                     navigator.clipboard.writeText(content)
                 }`,
                 id: 's8'
+            },
+            {
+                title: 'Ajax call to server',
+                explanation: 'Request to the database',
+                snippetEx: `
+                $.ajax({
+                    url: "https://mbouldo.com/evie/fitness.php",
+                    type: 'GET',
+                    dataType: 'json', // added data type
+                    success: function(response) {
+                    enteries = response;
+                       
+                })`,
+                id: 's9'
             }
         ]
 
