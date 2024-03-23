@@ -100,7 +100,77 @@
                        
                 })`,
                 id: 's9'
+            },
+            {
+                title: 'Find PHP errors',
+                explanation: 'Browser will display any errors in PHP',
+                snippetEx: `
+                ini_set('display_errors', 1);
+                ini_set('display_startup_errors', 1);
+                error_reporting(E_ALL);`,
+                id: `s10`
+            },
+            {   
+                title: 'Access information in another file',
+                explanation: 'Include statement takes all code existing in the file and copies it into the file that uses the statement. (..) allows access outside of folder.',
+                snippetEx: `
+                include '../file.php';`,
+                id: 's11'
+            },
+            {   
+                title: 'Access data and display to correct variables',
+                explanation: 'Get data from server and display data in correct variables',
+                snippetEx: `
+                $formData = $_POST;
+
+                $weight = $formData['weight'];
+                $sleepDuration = $formData['sleepDuration'];`,
+                id: 's12'
+            },
+            {   
+                title: 'SQL INSTERT INTO Statement',
+                explanation: 'Used to insert new records in a table',
+                snippetEx: `
+                $sql = "INSERT INTO tableName (column1, column2, column3) 
+                VALUES ('$value1',$value2,$value3)";`,
+                id: 's13'
+            },
+            {   
+                title: 'Prepaired Statement',
+                explanation: 'Used to execute the same statement repeatedly',
+                snippetEx: `
+                $statement = $pdo->prepare($sql);
+                $statement->execute();`,
+                id: 's14'
+            },
+            {   
+                title: 'Post Form',
+                explanation: 'Used to post form into given database',
+                snippetEx: `
+                (<)form id="form" action="https://mbouldo.com/evie/new/create_new_entry.php" method="POST"(/>)`,
+                id: 's15'
+            },
+            {   
+                title: 'Connecting to a Database',
+                explanation: 'Used to connect to a selected database in PHP',
+                snippetEx: `
+                $host = "localhost";
+                $user = "devUser";
+                $pass = '4m9%WVwp!4MVDdS!vns8qDRHG5AN2TMz$xKc';
+                $db='mbouldo_main';
+
+                try {
+                $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                //echo "Connected successfully";
+                }
+
+                catch(PDOException $error){
+                echo "Connection failed: " . $error->getMessage();
+                }`,
+                id: 's16'
             }
+                
         ]
 
         function createSnippet(title,explanation,snippetEx,id){
