@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intlstudentathlete</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body onclick="handleBodyClick()">
+    <div class="container">
+        <div class="navbar">
+            <img id="logo" src="logo.png" alt="Intlstudentathlete logo"/>
+            <div class="nav">
+                <a id="home" href="index.html" class="navLink">Home</a>
+                <a href="about.html" class="navLink">About Us</a>
+                <a href="information.html" class="navLink">Information</a>
+                <a href="stories.html" class="navLink">Stories</a>
+                <a href="" class="navLink">Discuss</a>
+                <span onclick="displayDropdown()" id="menuIcon" class="material-symbols-outlined">menu</span>
+                <img class="iconimage" src="search.png" alt="Search Button"/>
+            </div>
+        </div>
+        <div id="navDropdownList">
+            <a id="home" href="index.html" class="phoneDropdown">Home</a>
+            <a href="about.html" class="phoneDropdown">About Us</a>
+            <a href="information.html" class="phoneDropdown">Information</a>
+            <a href="stories.html" class="phoneDropdown">Stories</a>
+            <a href="" class="phoneDropdown">Discuss</a>
+        </div>
+
+        <h1 class="header">Discover</h1>
+
+        <div class="discovercontainer">
+            <form>
+                <div class="searchbar">
+                    <span class="material-symbols-outlined icon-in-input">search</span>
+                    <input class="searchbar2" type="search" placeholder="Search for posts">
+                </div>
+            </form>
+            
+            <select class="dropdown" id="dropdown">
+                <option value="All Categories" class="category-type">All Categories</option>
+                <option value="International" class="category-type">International</option>
+                <option value="Academics" class="category-type">Academics</option>
+                <option value="Sports" class="category-type">Sports</option>
+            </select>
+
+            <!--
+                <div id="dropdown-parent-container">
+                    <div onclick="handleDropdownClick()" class="dropdown" id="dropdown">
+                        <span id="dropdown-all-cat">All Categories</span>
+                        <span id="dropdown-icon" class="material-symbols-outlined ">expand_more</span>
+                    </div>
+                    <div id="dropdown-content">
+                        <li onclick="selectDropdown('All Categories')" class="category-type">All Categories</li>
+                        <li onclick="selectDropdown('International')" class="category-type">International</li>
+                        <li onclick="selectDropdown('Academics')" class="category-type">Academics</li>
+                        <li onclick="selectDropdown('Sports')" class="category-type">Sports</li>
+                    </div>
+                </div>
+            -->
+        </div>
+
+        <div id="international-articles" class="postcontainer">
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="athlete.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when flying as an international student</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="doc.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when eating as an international student</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="reading.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when coaching as an international student</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="study-articles" class="middlecontainer">
+        <div class="postcontainer2">
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="books.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when studying</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="question.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when doing anki</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="girl.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when downloading ppt</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="container3" class="postcontainer2">
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="athlete.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when learning about diets</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="doc.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when doing chemistry</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="reading.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when  doing physics</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="containerbox" class="container">
+        <div class="postcontainer">
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="books.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when doing SPORTS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="question.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when dating sports</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blogcontainer">
+                <div class="date">June 25 2023</div>
+                <div class="blogDescriptionBox">
+                    <div class="blogimgbox">
+                        <img class="blogimg2" src="girl.png">
+                    </div>
+                    <div class="bloginfobox">
+                        <button class="button">6 min read</button>
+                        <div class="blogtitle">10 things to consider when liking sports</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="storybutton">
+            <button type="submit" class="blogbutton">See more</button>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="topfooter">
+            <div class="footerabout">
+                <div class="footertitle">Intlstudentathlete.com</div>
+                <div class="footermessage">A platform designed to help people through the journey of being an International Student Athlete</div>
+            </div>
+
+            <div class="columncontainer">
+                <div class="column">
+                    <div class="columntitle">Quick Links</div>
+                    <a class="footerlinks" href="">Home</a>
+                    <a class="footerlinks" href="">About Us</a>
+                    <a class="footerlinks" href="">Information</a>
+                    <a class="footerlinks" href="">Participants</a>
+                    <a class="footerlinks" href="">Discuss</a>
+                </div>
+
+                <div class="column">
+                    <div class="columntitle">Company</div>
+                    <a class="footerlinks" href="">Contact Us</a>
+                    <a class="footerlinks" href="">Terms of Service</a>
+                    <a class="footerlinks" href="">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottomfooter">
+                <div class="copyright">&copy 2023, IntlStudentAthlete.com</div>
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    function handleDropdownClick(){
+        //alert("open");
+        document.getElementById("dropdown-content").style.display = 'block';
+    }
+
+    function handleBodyClick(){
+        //alert("close");
+        
+        var whoGotClicked = event.target.id;
+        console.log(event.target)
+        if(whoGotClicked=='dropdown' || whoGotClicked=='dropdown-icon' || whoGotClicked=='dropdown-all-cat'){
+            //dont close
+        }else{
+            //must be the body, close it
+            document.getElementById("dropdown-content").style.display = 'none';
+        }
+        //alert(whoGotClicked);
+    }
+        
+    function selectDropdown(selectedCategory){
+        if(selectedCategory == 'International'){
+            document.getElementById("international-articles").style.display = 'flex';
+            document.getElementById("study-articles").style.display = 'none';
+            document.getElementById("containerbox").style.display = 'none';
+        }
+
+        else if(selectedCategory == 'Academics'){
+            document.getElementById("study-articles").style.display = 'block';
+            document.getElementById("international-articles").style.display = 'none';
+            document.getElementById("containerbox").style.display = 'none';
+        }
+
+        else if(selectedCategory == 'Sports'){
+            document.getElementById("containerbox").style.display = 'block';
+            document.getElementById("study-articles").style.display = 'none';
+            document.getElementById("international-articles").style.display = 'none';
+        }
+
+        else if(selectedCategory == 'All Categories'){
+            document.getElementById("international-articles").style.display = 'flex';
+            document.getElementById("study-articles").style.display = 'block';
+            document.getElementById("containerbox").style.display = 'block';
+        }
+
+        document.getElementById("dropdown-all-cat").innerHTML = selectedCategory;
+    }
+    
+    function displayDropdown(){
+        document.getElementById("navDropdownList").style.display = "flex";
+    }
+</script>
