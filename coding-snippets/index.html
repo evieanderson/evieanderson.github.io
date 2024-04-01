@@ -92,7 +92,7 @@
                 explanation: 'Request to the database',
                 snippetEx: `
                 $.ajax({
-                    url: "https://mbouldo.com/evie/fitness.php",
+                    url: "phpFolder",
                     type: 'GET',
                     dataType: 'json', // added data type
                     success: function(response) {
@@ -147,7 +147,7 @@
                 title: 'Post Form',
                 explanation: 'Used to post form into given database',
                 snippetEx: `
-                (<)form id="form" action="https://mbouldo.com/evie/new/create_new_entry.php" method="POST"(/>)`,
+                (<)form id="form" action="databaseName" method="POST"(/>)`,
                 id: 's15'
             },
             {   
@@ -155,9 +155,9 @@
                 explanation: 'Used to connect to a selected database in PHP',
                 snippetEx: `
                 $host = "localhost";
-                $user = "devUser";
-                $pass = '4m9%WVwp!4MVDdS!vns8qDRHG5AN2TMz$xKc';
-                $db='mbouldo_main';
+                $user = "userName";
+                $pass = 'password';
+                $db='databaseName';
 
                 try {
                 $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
