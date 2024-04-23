@@ -97,7 +97,7 @@
                     dataType: 'json', // added data type
                     success: function(response) {
                     enteries = response;
-                       
+                    }
                 })`,
                 id: 's9'
             },
@@ -129,10 +129,19 @@
             },
             {   
                 title: 'SQL INSTERT INTO Statement',
-                explanation: 'Used to insert new records in a table',
+                explanation: 'Used to insert new records in a table.',
                 snippetEx: `
                 $sql = "INSERT INTO tableName (column1, column2, column3) 
-                VALUES ('$value1',$value2,$value3)";`,
+                VALUES (:value,:value,:value)";
+                
+                try{
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([
+                        'value'=>$value,
+                    ]);
+                } catch(PDOException $error){
+                    echo "Insert failed: " . $error->getMessage();
+                }`,
                 id: 's13'
             },
             {   
