@@ -132,12 +132,14 @@
                 explanation: 'Used to insert new records in a table.',
                 snippetEx: `
                 $sql = "INSERT INTO tableName (column1, column2, column3) 
-                VALUES (:value,:value,:value)";
+                VALUES (:value1,:value2,:value3)";
                 
                 try{
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute([
-                        'value'=>$value,
+                        'value1'=>$value1,
+                        'value2'=>$value2,
+                        'value3'=>$value3,
                     ]);
                 } catch(PDOException $error){
                     echo "Insert failed: " . $error->getMessage();
