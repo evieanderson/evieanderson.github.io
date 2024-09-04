@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <title>Financial Tracker</title>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="topContainer">
+            <div class="title">FinancialTracker</div>
+            
+            <div class="fileContainer">
+                <input type="file" name="csvFileInput" id="csvFileInput" accept=".csv">
+                <label for="csvFileInput">Upload File</label>
+            </div>
+        </div>
+        
+        <div class="backgroundContainer">
+            <div class="header">Monthly Outgoings</div>
+        
+            <div class="totalOutgoingsContainer">
+                <div class="totalAmountBox">
+                    <div>Total Amount:</div>
+                    <div class="listText" id="totalOutgoings"></div>
+                </div>
+
+                <div class="identifierDiv">
+                    <div class="identifier">Description</div>
+                    <div class="identifier">Amount</div>
+                </div>
+
+                <div class="eachList" id="totalList"></div>
+            </div>
+        </div>
+        
+        <div class="backgroundContainer">
+            <div class="header">Categories</div>
+            
+            <div class="totalOutgoingsContainer">
+                <div class="subcategory">
+                    <div class="categoryIdentifier">Groceries</div>
+                    <div class="eachList" id="groceryList"></div>
+                    <div class="totalAmountBox">
+                        <div>Total Amount:</div>
+                        <div class="listText" id="groceryOutgoings"></div>
+                    </div>
+                </div>
+    
+                <div class="subcategory">
+                    <div class="categoryIdentifier">Shopping</div>
+                    <div class="eachList" id="shoppingList"></div>
+                    <div class="totalAmountBox">
+                        <div>Total Amount:</div>
+                        <div class="listText" id="shoppingOutgoings"></div>
+                    </div>
+                </div>
+
+                <div class="subcategory">
+                    <div class="categoryIdentifier">Auto & Travel</div>
+                    <div class="eachList" id="autoList"></div>
+                    <div class="totalAmountBox">
+                        <div>Total Amount:</div>
+                        <div class="listText" id="autoOutgoings"></div>
+                    </div>
+                </div>
+
+                <div class="subcategory">
+                    <div class="categoryIdentifier">Bills</div>
+                    <div class="eachList" id="billList"></div>
+                    <div class="totalAmountBox">
+                        <div>Total Amount:</div>
+                        <div class="listText" id="billOutgoings"></div>
+                    </div>
+                </div>
+
+                <div class="subcategory">
+                    <div class="categoryIdentifier">Other</div>
+                    <div class="eachList" id="otherList"></div>
+                    <div class="totalAmountBox">
+                        <div>Total Amount:</div>
+                        <div class="listText" id="otherOutgoings"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+</body>
+<script>
+    const csvFile = document.getElementById('csvFileInput');
+
+    csvFile.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        
+        const reader = new FileReader();
+        reader.onload = function(e){
+
+            //getting the file name & removing the file extension
+            let fileName = file.name;
+            let split = fileName.split('.');
+            split.pop();
+            let finalFileName = split.join(".");
+            console.log(finalFileName);
+
+            const contents = e.target.result;
+            console.log(contents);
+
+            // Process the CSV contents here
+            let rows= contents.split("\n");
+            console.log(rows);
+
+            let amountSpent = 0;
+            let totalGroceriesSpent = 0;
+            let totalSpentShopping = 0;
+            let totalTravelSpent = 0;
+            let totalBillsSpent = 0;
+            let totalOtherSpent =0;
+            let allOutgoings = {};
+            let allGroceries ={};
+            let allShopping ={};
+            let allTravels ={};
+            let allBills ={};
+            let other={};
+
+            let vendor;
+            let category;
+            let amount;
+            let paymentType;
+
+            for (let index = 1; index < rows.length; index++) {
+                const rowString = rows[index];
+                console.log(rowString);
+                let cells = rowString.split(',');
+
+                if(finalFileName.includes("Chase")){
+                    vendor=cells[2];
+                    category=cells[6];
+                    amount=cells[3];
+                    paymentType=cells[0];
+                }
+                else{
+                    vendor = cells[1];
+                    category = cells[5];
+                    amount = cells[3];
+                    paymentType = cells[4];
+                }
+                
+                if(vendor.includes("Toogoodt")||vendor.includes("Too Good To Go")){
+                    vendor = "Too Good To Go";
+                    console.log(vendor);
+                }
+
+                if(paymentType=="Debit"||paymentType=="DEBIT"){
+                    category = category.replace(/[\r\n]+/g, ""); // santize all hidden characters from category
+                    amount= Math.abs(Number(amount)); // sanitize the -1 sign
+                    amountSpent += amount;
+                    console.log(amountSpent);
+
+                    if(!allOutgoings.hasOwnProperty(vendor)){
+                        allOutgoings[vendor]=0;
+                    }
+                    //allOutgoings[vendor]++ >>how much vendor has been used this month
+                    allOutgoings[vendor]+= amount;
+                    console.log(allOutgoings);
+    
+                    if(category=="Food & Dining"){
+                        if(!allGroceries.hasOwnProperty(vendor)){
+                            allGroceries[vendor]=0;
+                            console.log("Creating",vendor);
+                        }
+                        allGroceries[vendor]+= Number(amount);
+                        totalGroceriesSpent += Number(amount);
+                        console.log(totalGroceriesSpent);
+                        console.log('Other catch '+totalOtherSpent +' ' + category);
+
+                    }
+    
+                    if(category=="Shopping"){
+                        if(!allShopping.hasOwnProperty(vendor)){
+                            allShopping[vendor]=0;
+                        }
+                        allShopping[vendor]+= Number(amount);
+                        totalSpentShopping += Number(amount);
+                        console.log(totalSpentShopping);
+                        console.log('Other catch '+totalOtherSpent +' ' + category);
+
+                    }
+                    
+                    if(category=="Travel"||category=="Auto & Transport"){
+                        if(!allTravels.hasOwnProperty(vendor)){
+                            allTravels[vendor]=0;
+                        }
+                        allTravels[vendor]+= Number(amount);
+                        totalTravelSpent += Number(amount);
+                        console.log(totalTravelSpent);
+                        console.log('Other catch '+totalOtherSpent +' ' + category);
+
+                    }
+                    // **debugging**
+                    //else{
+                    //     console.log(JSON.stringify(category) + " is not Travel")
+                    // }
+    
+                    if(category=="Bills & Utilities"||category=="Home"||category=="Personal Care"){
+                        if(!allBills.hasOwnProperty(vendor)){
+                            allBills[vendor]=0;
+                        }
+                        allBills[vendor]+= Number(amount);
+                        totalBillsSpent += Number(amount);
+                        console.log(totalBillsSpent);
+                        console.log('Other catch '+totalOtherSpent +' ' + category);
+
+                    }
+    
+                    if(!(category=="Bills & Utilities"||category=="Home"||category=="Personal Care"||category=="Travel"||category=="Auto & Transport"||category=="Shopping"||category=="Food & Dining")){
+                        if(!other.hasOwnProperty(vendor)){
+                            other[vendor]=0;
+                        }
+                        other[vendor]+= Number(amount);
+                        totalOtherSpent += Number(amount);
+                        console.log('Other catch '+totalOtherSpent +' ' + category);
+                    }
+
+                }
+            }
+            
+            //Looping through all of All Outgoings category
+            let totalSortable = [];
+            for (const vendor in allOutgoings){
+                totalSortable.push([vendor, allOutgoings[vendor]]);
+            }
+            
+            totalSortable.sort(function(a, b){
+                return b[1] - a[1];
+            });
+            console.log(totalSortable);
+
+            for (let index = 0; index < totalSortable.length; index++) {
+                const eachPurchase = totalSortable[index];
+                console.log(eachPurchase);
+                document.getElementById("totalOutgoings").innerHTML = "$" + amountSpent.toFixed(2);
+                document.getElementById("totalList").innerHTML += `
+                <div class='eachPurchaseRow'>
+                    <div class='purchase'>${eachPurchase[0]}:</div> 
+                    <div class='purchase'>$${eachPurchase[1].toFixed(2)}</div>
+                </div>`
+            }
+
+            //Looping through all of Groceries category
+            let groceriesSortable = [];
+            for (const vendor in allGroceries){
+                console.log(allGroceries)
+                console.log('allg')
+                groceriesSortable.push([vendor, allGroceries[vendor]]);
+            }
+
+            groceriesSortable.sort(function(a, b){
+                return b[1] - a[1];
+            });
+
+            for (let index = 0; index < groceriesSortable.length; index++) {
+                const groceryPurchase = groceriesSortable[index];
+                console.log(groceryPurchase,"I AM HERE STUPID");
+                document.getElementById("groceryList").innerHTML += `
+                <div class='eachPurchaseRow'>
+                    <div class='purchase'>${groceryPurchase[0]}:</div>
+                    <div class='purchase'>$${groceryPurchase[1].toFixed(2)}</div>
+                </div>`
+                document.getElementById("groceryOutgoings").innerHTML = "$" + totalGroceriesSpent.toFixed(2);
+                }
+
+            //Looping through all of Shopping category
+            let shoppingSortable = [];
+            for (const vendor in allShopping){
+                shoppingSortable.push([vendor, allShopping[vendor]]);
+            }
+
+            shoppingSortable.sort(function(a, b){
+                return b[1] - a[1];
+            });
+
+            for (let index = 0; index < shoppingSortable.length; index++) {
+                const shoppingPurchase = shoppingSortable[index];
+                console.log(shoppingPurchase);
+                document.getElementById("shoppingList").innerHTML += `
+                <div class='eachPurchaseRow'>
+                    <div class='purchase'>${shoppingPurchase[0]}:</div>
+                    <div class='purchase'>$${shoppingPurchase[1].toFixed(2)}</div>
+                </div>`
+                document.getElementById("shoppingOutgoings").innerHTML = "$" + totalSpentShopping.toFixed(2);
+            }
+
+            //Looping through all of Auto & Travel category
+            let autoSortable = [];
+            for (const vendor in allTravels){
+                autoSortable.push([vendor, allTravels[vendor]]);
+            }
+
+            autoSortable.sort(function(a, b){
+                return b[1] - a[1];
+            });
+
+            for (let index = 0; index < autoSortable.length; index++) {
+                const autoPurchase = autoSortable[index];
+                console.log(autoPurchase);
+                document.getElementById("autoList").innerHTML += `
+                <div class='eachPurchaseRow'>
+                    <div class='purchase'>${autoPurchase[0]}:</div>
+                    <div class='purchase'>$${autoPurchase[1].toFixed(2)}</div>
+                </div>`
+                document.getElementById("autoOutgoings").innerHTML = "$" + totalTravelSpent.toFixed(2);
+            }
+
+            //Looping through all of bill category
+            let billSortable = [];
+            for (const vendor in allBills){
+                billSortable.push([vendor, allBills[vendor]]);
+            }
+
+            billSortable.sort(function(a, b){
+                return b[1] - a[1];
+            });
+
+            for (let index = 0; index < billSortable.length; index++) {
+                const billPurchase = billSortable[index];
+                console.log(billPurchase);
+                document.getElementById("billList").innerHTML += `
+                <div class='eachPurchaseRow'>
+                    <div class='purchase'>${billPurchase[0]}:</div>
+                    <div class='purchase'>$${billPurchase[1].toFixed(2)}</div>
+                </div>`
+                document.getElementById("billOutgoings").innerHTML = "$" + totalBillsSpent.toFixed(2);
+            }
+
+            //Looping through all of other category
+            let otherSortable = [];
+            for (const vendor in other){
+                otherSortable.push([vendor, other[vendor]]);
+            }
+
+            otherSortable.sort(function(a, b){
+                return b[1] - a[1];
+            });
+
+            for (let index = 0; index < otherSortable.length; index++) {
+                const otherPurchase = otherSortable[index];
+                console.log(otherPurchase);
+                document.getElementById("otherList").innerHTML += `
+                <div class='eachPurchaseRow'>
+                    <div class='purchase'>${otherPurchase[0]}:</div>
+                    <div class='purchase'>$${otherPurchase[1].toFixed(2)}</div>
+                </div>`
+                document.getElementById("otherOutgoings").innerHTML = "$" + totalOtherSpent.toFixed(2);
+            }
+        };
+
+        reader.readAsText(file);
+    });
+
+</script>
+</html>
