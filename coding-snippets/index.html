@@ -96,7 +96,7 @@
             },
             {
                 title: 'Ajax call to server',
-                explanation: 'Request to the database',
+                explanation: 'Access data from the server asynchronously',
                 snippetEx: `
                 $.ajax({
                     url: "https://mbouldo.com/evie/fitness.php",
@@ -104,7 +104,7 @@
                     dataType: 'json', // added data type
                     success: function(response) {
                     enteries = response;
-                       
+                    }
                 })`,
                 id: 's9'
             },
@@ -218,7 +218,7 @@
                 <div class="snippet">
                     <pre><code class="language-javascript"><div class="code" id="${id}">${snippetEx}</div></code></pre>
                     <button class="btn">
-                        <span onclick="copyToClipboard('${id}')" class="material-symbols-outlined">content_copy</span>
+                        <span onclick="copyToClipboard(\`${snippetEx}\`)" class="material-symbols-outlined">content_copy</span>
                     </button>
                 </div>
                 
@@ -230,9 +230,8 @@
             createSnippet(snippet.title,snippet.explanation,snippet.snippetEx,snippet.id)
         }
  
-        function copyToClipboard(target) {
-            let content = document.getElementById(target).innerHTML
-            navigator.clipboard.writeText(content)
+        function copyToClipboard(content) {
+            navigator.clipboard.writeText(content);
         }
     </script>
 </body>
