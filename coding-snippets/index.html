@@ -155,7 +155,7 @@
                 title: 'Post Form',
                 explanation: 'Used to post form into given database',
                 snippetEx: `
-                (<)form id="form" action="https://mbouldo.com/evie/new/create_new_entry.php" method="POST"(/>)
+                form id="form" action="https://mbouldo.com/evie/new/create_new_entry.php" method="POST"
                 `,
                 id: 's15'
             },
@@ -165,8 +165,8 @@
                 snippetEx: `
                 $host = "localhost";
                 $user = "devUser";
-                $pass = '4m9%WVwp!4MVDdS!vns8qDRHG5AN2TMz$xKc';
-                $db='mbouldo_main';
+                $pass = 'password';
+                $db='database';
 
                 try {
                 $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
@@ -208,7 +208,6 @@
                 `,
                 id: 's18' 
             }
-
         ]
 
         function createSnippet(title,explanation,snippetEx,id){
@@ -218,7 +217,7 @@
                 <div class="snippet">
                     <pre><code class="language-javascript"><div class="code" id="${id}">${snippetEx}</div></code></pre>
                     <button class="btn">
-                        <span onclick="copyToClipboard(\`${snippetEx}\`)" class="material-symbols-outlined">content_copy</span>
+                        <span onclick="searchSnippet(\`${id}\`)" class="material-symbols-outlined">content_copy</span>
                     </button>
                 </div>
                 
@@ -229,9 +228,15 @@
             const snippet = snippets[index];
             createSnippet(snippet.title,snippet.explanation,snippet.snippetEx,snippet.id)
         }
- 
-        function copyToClipboard(content) {
-            navigator.clipboard.writeText(content);
+        
+        function searchSnippet(target){
+            for(snippet of snippets){
+                if(snippet.id == target){
+                    console.log("found")
+                    navigator.clipboard.writeText(snippet.snippetEx);
+                }
+            }
         }
+
     </script>
 </body>
