@@ -1,0 +1,850 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: "Playfair Display", serif;
+    background-color: #fdfdfd;
+}
+
+.overallContainer{
+    margin: 80px;
+}
+
+.titleContainer{
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userLogin{
+    color: #1C3F1A;
+    letter-spacing: 0.5px;
+    font-size: 20px;
+}
+
+.userLogin:hover{
+    cursor: pointer;
+}
+
+.title{
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1C3F1A;
+}
+
+title::placeholder{
+    color: #1C3F1A;
+}
+
+#homepageContainer{
+    display: flex;
+    flex-direction: column;
+}
+.mainContainer{
+    display: flex;
+    gap: 30px;
+}
+
+.allRecipesContainer{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.recipeBarsContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.searchRecipeInput{
+    border-radius: 5px;
+    border: 1px #979797 solid;
+    padding: 4px 8px;
+    font-size: 16px;
+    font-family: "Playfair Display", serif;
+    width: 280px;
+}
+
+.separateBox{
+    display: flex;
+    gap: 25px;
+}
+
+.newButton{
+    background-color: #1C3F1A;
+    color: white;
+    border: 1px solid #1C3F1A;
+    border-radius: 5px;
+    font-family: "Playfair Display", serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.allRecipes{
+    display: flex;
+    flex-direction: column;
+    background-color: #F5ECE7;
+    border: 1px #F5ECE7 solid;
+    border-radius: 5px;
+    padding: 20px;
+    gap: 15px;
+}
+
+.recipeHistoryContainer{
+    width: 325px;
+    border: 1px solid #1C3F1A;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.recipeHistoryTitle{
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.recipeContainer{
+    background-color: white;
+    border: 1px black solid;
+    border-radius: 10px;
+    padding: 15px 20px;
+}
+
+.recipeContainerTitle{
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1C3F1A;
+}
+
+.recipeContainerLine{
+    display: flex;
+}
+
+.topLine{
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 5px;
+}
+
+.seeFullRecipeLink{
+    font-size: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.seeFullRecipeLink:hover{
+    text-decoration: underline;
+}
+
+.recipeContainerDate{
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #6D6A6D;
+}
+
+.endLine{
+    margin-top: 10px;
+    justify-content: end;
+    gap: 20px;
+}
+
+.recipeContainerSmallBox{
+    background-color:#E8EAE9;
+    border: 1px solid #E8EAE9;
+    color: #1C3F1A;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.recipeLogoDiv{
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.recipeLogo{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recipeHistoryContents{
+    display: flex;
+    flex-direction: column;
+}
+
+.recipeHistoryLine{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.modalContainer{
+    display: none;
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modalBox{
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 15px 25px;
+    height: 550px;
+    width: 35%;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+}
+
+.newIngredientBox{
+    padding: 10px;
+}
+
+.newIngredientTitle{
+    color: #1C3F1A;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.inputBox{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    gap: 5px;
+}
+
+.inputLabel{
+    letter-spacing: 0.5px;
+}
+
+.newIngredientInput{
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 7px;
+    letter-spacing: 0.5px;
+    font-family: "Playfair Display", serif;
+}
+
+.newIngredientButton{
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+}
+
+.separateSearchBar{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.searchbarBox{
+    cursor: pointer;
+    max-height: 25px;
+    max-width: 25px;
+    margin-left: -40px;
+    padding-top: 4px;
+}
+
+.searchImg{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.searchBarRow{
+    display: flex;
+}
+
+.dropDownContainer{
+    display:none;
+    justify-content: start;
+}
+
+.dropDownIngredients{
+    width: 276px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px #979797 solid;
+    border-radius: 5px;
+    gap: 5px;
+}
+
+.seeIngredientLine{
+    font-size: 15px;
+    color: #6D6A6D;
+}
+
+.seeIngredientLine:hover{
+    text-decoration: underline;
+}
+
+.updateIngredientButton{
+    display: none;
+    justify-content: end;
+    margin-top: 30px;
+}
+
+.addButton{
+    background-color: #1C3F1A;
+    border: 1px solid #1C3F1A;
+    border-radius: 5px;
+    color: white;
+    padding: 6px 10px;
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.updateButton{
+    background-color: #1C3F1A;
+    border: 1px solid #1C3F1A;
+    border-radius: 5px;
+    color: white;
+    padding: 6px 10px;
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.ingredientLibraryContainer{
+    display: none;
+    flex-direction: column;
+}
+
+.ingredientLibraryTitle{
+    color: #1C3F1A;
+}
+
+.ingredientLibraryTableBox{
+    margin-top: 15px;
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.homepageLink{
+    font-size: 18px;
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+}
+
+.homepageLink:hover{
+    text-decoration: underline;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th{
+    text-align: left;
+}
+
+td{
+    border-collapse: collapse;
+    background-color: #1c3f1a25;
+}
+
+.libraryRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.libraryRowDivider{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.leftAlignedButton{
+    margin-left: 20px;
+}
+
+.deleteButton{
+    color: rgb(197, 14, 14);
+    cursor: pointer;
+}
+
+.editButton{
+    color: #1C3F1A;
+    cursor: pointer;
+}
+
+.fullRecipeContainer{
+    margin: 0px 50px;
+    border: 1px solid #1C3F1A;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.recipeContainerBar{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background-color: #1C3F1A;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.recipePrices{
+    list-style: none;
+}
+
+.recipeContainerIngredients{
+    display: none;
+    justify-content: space-between;
+    padding-right: 15px;
+}
+
+.insideContainerRecipeContainer{
+    margin: 30px;
+}
+
+.recipeContainerMiniInfo{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.ingredientsTitle{
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+li{
+    margin-bottom: 5px;
+}
+
+.recipeContainerBottomRow{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recipeContainerButtonPack{
+    display: flex;
+    justify-content: end;
+    margin-top: 15px;
+    gap: 15px;
+}
+
+.newRecipeMiddleRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.newRecipeBottomRow{
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+}
+
+.createNewRecipeDropDown{
+    display: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.newRecipeDropdownIngredients{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.dropdownRow{
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background-color: #1c3f1a25;
+    border: #1c3f1a25 1px solid;
+    border-radius: 5px;
+}
+
+.dropdownIngredientRow{
+    display: flex;
+    gap: 15px;
+}
+
+.noResultLine{
+    font-size: 15px;
+    color: #6D6A6D;
+}
+
+.insideContainerNewRecipeContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.newRecipeTitleBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.createNewTitleInput{
+    border: none;
+    cursor: pointer;
+    width: 500px;
+    font-family: "Playfair Display", serif;
+}
+
+.createNewTitleInput::placeholder{
+    color: #1C3F1A;
+}
+
+.miniInfoBox{
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.price{
+    gap: 1px;
+}
+
+.miniInfoBoxInput{
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    font-size: 20px;
+    font-family: "Playfair Display", serif;
+}
+
+.time{
+    width: 90px;
+}
+
+.newRecipeAddIngredient:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.recipeContainerIngredientRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:0px 10px;
+}
+
+.newRecipeIngredientsRow{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.newRecipeName{
+    font-weight: 600;;
+}
+
+.delete{
+    font-size: 15px;
+}
+
+.methodContainer{
+    margin-top: 10px;
+}
+
+.methodInputField{
+    border-radius: 5px;
+    border: 1px #979797 solid;
+    padding: 4px 8px;
+    font-size: 16px;
+    font-family: "Playfair Display", serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.newRecipeContainerIngredientContainer{
+    margin: 0px 10px;
+}
+
+.newRecipeContainerIngredients{
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+ul{
+    padding: 0px;
+    list-style-type:circle;
+}
+
+.totalCostRowContainer{
+    display: none;
+    justify-content: end;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin-right: 35px;
+}
+
+.recipeContainerIngredientRowEnd{
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+}
+
+.storeNameTitle{
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.amountUnitContainer{
+    display: flex;
+    align-items: center;
+}
+
+.amountBox{
+    border: 1px #FFFFFF solid;
+    border-radius: 5px;
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    color: black;
+    cursor: pointer;
+    field-sizing: content;
+}
+
+.amountBox:hover{
+    border: 1px #1C3F1A solid;
+}
+
+.amountBox::placeholder{
+    color: black;
+}
+
+.styleInputBox{
+    display: flex;
+    width: 150px;
+    border: 1px #FFFFFF solid;
+    border-radius: 5px;
+    font-family: "Playfair Display", serif;
+    cursor: pointer;
+    margin-left: 4px;
+}
+
+.styleInputBox:hover{
+    border: 1px #1C3F1A solid;
+}
+
+.fullRecipePageInformationBox{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.servingAndTimeBox{
+    display: flex;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.input[type="checkbox"]+label::before{
+    background: white;
+}
+
+.input[type="checkbox"]:checked+label::after{
+    background: #1C3F1A;
+}
+
+.fullRecipeIngredientsAndPriceContainer{
+    margin: 10px 0px;
+}
+
+.ingredientAndPriceContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingredientAndMethodTitle{
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+.fullRecipeMethodContainer{
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.deleteRecipeModal{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.deleteRecipeModalContainer{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 40%;
+    min-height: 180px;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    background-color: white;
+    border: 1px solid #888;
+    border-radius: 15px;
+    z-index: 2;
+}
+
+.deleteModalButtonContainer{
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.deleteConformationLine{
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.deleteConformationButton{
+    font-family: "Playfair Display", serif;
+    border: 1px solid #1C3F1A;
+    color: #1C3F1A;
+    border-radius: 5px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.deleteBtn{
+    background-color: #1C3F1A;
+    color: white;
+}
+
+.ingredientPriceStyleContainer{
+    display: flex;
+}
+
+.totalCostRowContainerForViewingFullRecipe{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.duplicateIngredientMessage{
+    font-size: 13px;
+    color: rgb(197, 14, 14);
+    display: none;
+    justify-content: end;
+}
+
+.recipeLinkContainer{
+    letter-spacing: 0.5px;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.recipeLink{
+    color: #1C3F1A;
+    text-decoration: none;
+}
+
+.recipeLink:hover{
+    text-decoration: underline;
+}
+
+.cookedTodayContainer{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 18px;
+}
+
+.recipeLinkTitle{
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+.url{
+    width: 100%;
+}
+
+#changesSavedBar{
+    visibility: hidden;
+    position: absolute;
+    background-color: #F5ECE7;
+    border: 1px #F5ECE7 solid;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+#changesSavedBar.show{
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.loginModalContainer{
+    display: none;
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4);
+}
+
+.loginModalBox{
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 15px 25px;
+    height: 350px;
+    width: 35%;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+}

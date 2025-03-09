@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Log</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Playfair Display Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="overallContainer">
+        <div class="ingredientLibraryContainer" id="ingredientLibraryContainer"></div>
+        <div class="createRecipeContainer" id="createRecipeContainer"></div>
+        <div class="deleteRecipeModal" id="deleteRecipeModal"></div>
+        <div class="fullRecipePage" id="fullRecipePage"></div>
+        <div id="homepageContainer">
+            <div class="titleContainer">
+                <div class="title">Recipe Library</div>
+                <div class="userLogin ignore" onclick="openUserLogin()">User Login</div>
+            </div>
+                <div class="mainContainer">
+                <div class="allRecipesContainer">
+                    <div class="recipeBarsContainer">
+                        <div class="separateSearchBar">
+                            <input class="searchRecipeInput" type="text" placeholder="Search for recipe" id="searchAllRecipes">
+                        </div>
+                        <div class="separateBox">
+                            <button class="newButton" onclick="openNewRecipePage(null)">+ New Recipe</button>
+                            <button class="newButton" onclick="openAllIngredients()">All Ingredients</button>
+                        </div>
+                    </div>
+
+                    <div class="allRecipes" id="allRecipes"></div>
+                </div>
+                <div class="recipeHistoryContainer">
+                    <div class="recipeHistoryTitle">Recipe History</div>
+                    <div class="recipeHistoryContents" id="recipeHistoryContents"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loginModalContainer" id="loginModalContainer">
+        <div class="loginModalBox ignore" id="loginIngredientModal">
+            <div class="newIngredientBox ignore">
+                <div class="newIngredientTitle ignore" id="newOrEditIngredientTitle">User Log in</div>
+                <div class="inputBox ignore">
+                    <label class="inputLabel ignore">Username</label>
+                    <input type="text" class="newIngredientInput ignore" id="newIngredientName">
+                </div>
+                <div class="inputBox">
+                    <label class="inputLabel ignore">Password</label>
+                    <input type="text" class="newIngredientInput ignore" id="newIngredientAmount">
+                </div>
+                <div class="newIngredientButton ignore" id="newIngredientButton">
+                    <button id="addIngredientButton" class="addButton ignore" onclick="">Log in</button>
+                </div>
+                <div class="updateIngredientButton ignore" id="updateIngredientButton"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modalContainer" id="newIngredientModalContainer">
+        <div class="modalBox ignore" id="newIngredientModal">
+            <div class="newIngredientBox ignore">
+                <div class="newIngredientTitle ignore" id="newOrEditIngredientTitle">New Ingredient</div>
+                <div class="inputBox ignore">
+                    <label class="inputLabel ignore">Ingredient Name</label>
+                    <input type="text" class="newIngredientInput ignore" id="newIngredientName">
+                </div>
+                <div class="inputBox">
+                    <label class="inputLabel ignore">Amount</label>
+                    <input type="text" class="newIngredientInput ignore" id="newIngredientAmount">
+                </div>
+                <div class="inputBox">
+                    <label class="inputLabel ignore">Unit</label>
+                    <input type="text" class="newIngredientInput ignore" id="newIngredientUnit">
+                </div>
+                <div class="inputBox">
+                    <label class="inputLabel ignore">Price</label>
+                    <input type="text" class="newIngredientInput ignore" id="newIngredientPrice">
+                </div>
+                <div class="inputBox">
+                    <label class="inputLabel ignore">Store</label>
+                    <input type="text" class="newIngredientInput ignore" id="newIngredientStore">
+                </div>
+                <div class="newIngredientButton ignore" id="newIngredientButton">
+                    <button id="addIngredientButton" class="addButton ignore" onclick="getIngredientInfo()">Add Ingredient</button>
+                </div>
+                <div class="updateIngredientButton ignore" id="updateIngredientButton"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+
+    let allIngredients = [
+        {
+            id:1,
+            name:'Mushroom',
+            amount:'150',
+            unit: 'g',
+            price:3.20,
+            store:'Target'
+        },
+        {
+            id:2,
+            name:'Red Pepper',
+            amount:'1',
+            unit: 'x',
+            price:1.90,
+            store:'Trader Joes',
+        },
+        {
+            id:3,
+            name:'Frozen Peas',
+            amount:'1',
+            unit: 'Can',
+            price:1.90,
+            store:'Target'
+        },
+        {
+            id:4,
+            name:'Salmon Fillets',
+            amount:'1',
+            unit: 'x',
+            price:8.45,
+            store:'Whole Foods'
+        },
+        {
+            id:5,
+            name:'Olive Oil',
+            amount:'1',
+            unit: 'tablespoon',
+            price:0.10,
+            store:'Trader Joes'
+        },
+        {
+            id:6,
+            name:'Sour Cream',
+            amount:'1.5',
+            unit: 'Cup',
+            price:0.32,
+            store:'Target'
+        },
+        {
+            id:7,
+            name:'Garlic Powder',
+            amount:'1',
+            unit: 'teaspoon',
+            price:0.05,
+            store:'Whole Foods'
+        },
+        {
+            id:8,
+            name:'Chicken Breast',
+            amount:'1',
+            unit: 'x',
+            price:4.45,
+            store:'Whole Foods'
+        },
+        {
+            id:9,
+            name:'Lemon Juice',
+            amount:'1',
+            unit: 'x',
+            price:2.10,
+            store:'Trader Joes'
+        },
+        {
+            id:10,
+            name:'Zucchini',
+            amount:'1',
+            unit: 'x',
+            price:1.13,
+            store:'Trader Joes'
+        },
+        {
+            id:11,
+            name:'Fresh Chopped Parsley',
+            amount:'30',
+            unit: 'g',
+            price:0.95,
+            store:'Trader Joes'
+        },
+        {
+            id:12,
+            name:'White Fish Fillets',
+            amount:'1',
+            unit: 'x',
+            price:9.30,
+            store:'Whole Foods'
+        },
+        {
+            id:13,
+            name:'All-Purpose Flour',
+            amount:'1',
+            unit: 'Cup',
+            price:0.45,
+            store:'Target'
+        },
+        {
+            id:14,
+            name:'Potato',
+            amount:'1',
+            unit: 'Large',
+            price:0.85,
+            store:'Trader Joes'
+        },
+        {
+            id:15,
+            name:'Linguine Pasta',
+            amount:'8',
+            unit: 'oz',
+            price:3.15,
+            store:'Whole Foods'
+        },
+        {
+            id:16,
+            name:'Heavy Cream',
+            amount:'0.5',
+            unit: 'Cup',
+            price:0.50,
+            store:'Target'
+        },
+        {
+            id:17,
+            name:'Parmesan Cheese',
+            amount:'20',
+            unit: 'g',
+            price:0.45,
+            store:'Whole Foods'
+        },
+
+    ];
+
+    let allRecipes = [
+        {
+            id:1,
+            ingredients:[
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "9",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "7",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "6",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "5",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "4",
+                    ingredientId: "4",
+                    style: 'de-skinned',
+                }
+            ],
+            method: "1. Preheat your oven to 400°F (200°C).\n2. Place the salmon fillets on a baking sheet lined with parchment paper or aluminum foil. Drizzle olive oil over the fillets, then sprinkle with garlic powder, paprika, salt, and pepper. Use your fingers or a brush to ensure the seasonings coat the fillets evenly.\n3. Bake the salmon in the preheated oven for 12-15 minutes, or until the salmon is cooked through and easily flakes with a fork. The exact time will depend on the thickness of your fillets.\n4. While the salmon is baking, combine sour cream, mayonnaise, chopped dill, lemon juice, garlic powder, salt, and pepper in a small bowl. Stir until smooth.\n5. Once the salmon is ready, remove it from the oven. Serve the salmon fillets with a generous dollop of dill sauce on top or on the side. Garnish with lemon wedges for a fresh citrus touch. ",
+            recipeTitle: "Crispy Baked Salmon with Dill Sauce",
+            servings: "4",
+            totalTime: "1hr 45m",
+            totalPrice: 21.52,
+            recipeLink: "https://laughingspatula.com/baked-salmon-with-lemon-dill-sauce/",
+            lastCreated: "01/11/2025"
+        },
+        {
+            id:2,
+            ingredients:[
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "8",
+                    style: 'cubed',
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "11",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "9",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "7",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "3",
+                    ingredientId: "5",
+                    style: null,
+                }
+            ],
+            method: "1. Dice Chicken Breasts into large cubes.\n2. Marinate chicken breasts in olive oil, minced garlic, lemon juice, lemon zest, chopped parsley, salt, and pepper.\n3. Grill over medium heat for 6-7 minutes per side until cooked through.\n4. Serve with a side of roasted vegetables. ",
+            recipeTitle: "Lemon Garlic Herb Chicken",
+            servings: "2",
+            totalTime: "1hr 10m",
+            totalPrice: 10.99,
+            recipeLink: 'https://www.themediterraneandish.com/lemon-garlic-chicken/',
+            lastCreated: "12/21/2024"
+        },
+        {
+            id:3,
+            ingredients:[
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "11",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "4",
+                    ingredientId: "12",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "13",
+                    style: 'sifted',
+                },
+                {
+                    amountAddedToRecipe: "4",
+                    ingredientId: "14",
+                    style: 'peeled',
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "7",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "5",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "3",
+                    style: null,
+                }
+            ],
+            method: "1. Peel and cut the potatoes into thick fries.\n2. In a large pot, bring water to a boil and add the potato fries. Cook for about 4-5 minutes, just until they begin to soften. Drain and pat dry with a paper towel. \n3. In a small saucepan, cook the frozen peas according to package instructions (usually boiling them for 2-3 minutes). Drain and mash the peas with the fork until they reach a desired texture. \n4. In a mixing bowl, combine the flour and salt. Gradually whisk in the cold sparkling water until the batter is smooth and has a thick consistency.\n5. Heat vegetable oil in a deep fryer or large pot to around 350°F (175°C).\n6. Carefully add the par-cooked fries into the hot oil in small batches. Fry for about 4-5 minutes, or until golden brown and crispy. Remove the fries and place them on paper towels to drain excess oil. Season with salt immediately.\n7. While the fries are cooking, heat oil in the fryer or a large pot to 350°F (175°C) for the fish.\n8. Dip the fish fillets into the batter, coating them evenly.\n9. Carefully lower the battered fish into the hot oil and fry for about 5-6 minutes, or until golden and crispy, and the fish is cooked through.\n10. Remove the fish and place it on paper towels to drain any excess oil.\n11. Serve the crispy fish with a side of hot, golden chips and a generous portion of mushy peas. ",
+            recipeTitle: "Classic Fish and Chips with Mushy Peas",
+            servings: "2",
+            totalTime: "1hr 35m",
+            totalPrice: 15.20,
+            lastCreated: "02/20/2025"
+        },
+        {
+            id:4,
+            ingredients:[
+                {
+                    amountAddedToRecipe: "4",
+                    ingredientId: "8",
+                    style: 'cubed',
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "5",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "7",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "2",
+                    style: 'diced',
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "9",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "11",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "10",
+                    style: 'diced',
+                }
+            ],
+            method: "1. In a bowl, mix olive oil, lemon juice, garlic, parsley, salt, and pepper.\n2. Add the chicken cubes to the marinade and toss to coat evenly. Cover and refrigerate for at least 30 minutes (or up to 2 hours for more flavor). \n3. If you're using wooden skewers, soak them in water for about 30 minutes to prevent burning.\n4. While the chicken is marinating, cut your vegetables.\n5. Thread the marinated chicken and vegetables onto the skewers, alternating between chicken and vegetables.\n5. Preheat your grill to medium-high heat. If you're using a grill pan, heat it over medium-high heat.\n6. Place the skewers on the grill and cook for about 10-12 minutes, turning occasionally, until the chicken is cooked through and has an internal temperature of 165°F (75°C) and the vegetables are tender and lightly charred. \n6. Once cooked, remove the skewers from the grill and let them rest for a couple of minutes before serving.\n7. Enjoy as is or serve with a side of rice, couscous, or a fresh salad. ",
+            recipeTitle: "Chicken and Vegetable Skewers",
+            servings: "4",
+            totalTime: "2hr 00m",
+            totalPrice: 13.30,
+            lastCreated: "01/04/2025"
+        },
+        {
+            id:5,
+            ingredients:[
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "15",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "17",
+                    style: 'grated',
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "16",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "11",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "1",
+                    ingredientId: "9",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "8",
+                    style: 'cubed',
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "7",
+                    style: null,
+                },
+                {
+                    amountAddedToRecipe: "2",
+                    ingredientId: "5",
+                    style: null,
+                }
+            ],
+            method: "1. Boil a large pot of salted water and cook the pasta according to the package instructions. Drain and set aside, reserving a bit of pasta water for later.\n2. While the pasta is cooking, heat 2 tablespoons of olive oil in a large skillet over medium-high heat.\n3. Season the chicken pieces with salt and pepper, then add them to the skillet. Cook until browned and cooked through, about 6-8 minutes.\n4. Remove the chicken from the skillet and set it aside.\n5. In the same skillet, add 1 tablespoon of olive oil and sauté the minced garlic over medium heat for 1-2 minutes, until fragrant. Stir in the lemon juice, then let it cook for another minute to combine the flavors.\n6. Stir in the heavy cream and simmer for an additional 2-3 minutes, until slightly thickened.\n7. Add the cooked chicken back into the skillet, along with the cooked pasta. Toss everything together to coat the pasta and chicken in the lemon garlic sauce. Add a little reserved pasta water if you need to loosen the sauce.\n8. Garnish with fresh parsley and grated Parmesan cheese.",
+            recipeTitle: "Lemon Garlic Chicken Pasta",
+            servings: "2",
+            totalTime: "0hr 45m",
+            totalPrice: 10.99,
+            recipeLink: 'https://simply-delicious-food.com/easy-creamy-lemon-chicken-pasta/?utm_source=chatgpt.com',
+            lastCreated: "01/27/2025"
+        }
+    ];
+
+
+    function openNewIngredientContainer(){
+        document.getElementById("newIngredientModalContainer").style.display="flex";
+        document.getElementById("newIngredientButton").style.display="flex";
+        document.getElementById("updateIngredientButton").style.display="none";
+        document.getElementById("newOrEditIngredientTitle").innerHTML='New Ingredient';
+        document.getElementById("newIngredientName").value='';
+        document.getElementById("newIngredientAmount").value='';
+        document.getElementById("newIngredientPrice").value='';
+        document.getElementById("newIngredientStore").value='';
+    }
+
+    document.addEventListener('click',function(event){
+            if(typeof event.target.className != 'string'){
+                return false;
+            }
+           if(event.target.className.includes("ignore")){
+           }
+           else{
+            document.getElementById("newIngredientModalContainer").style.display='none';
+            document.getElementById("loginModalContainer").style.display='none';
+           }
+    });
+
+    function openAllIngredients(){
+        document.getElementById("homepageContainer").style.display="none";
+        document.getElementById("fullRecipePage").style.display="none";
+        document.getElementById("ingredientLibraryContainer").style.display="flex";
+        document.getElementById("ingredientLibraryContainer").innerHTML='';
+        document.getElementById("ingredientLibraryContainer").innerHTML=`
+        <div class="libraryRow">
+            <div class="title">Ingredients Library</div>
+            <div class="homepageLink" onclick="backToHomepage()">Back to Homepage</div>
+        </div>
+        <div class="libraryRowDivider">
+            <div>
+                <div class="searchBarRow">
+                    <input class="searchRecipeInput" type="text" placeholder="Search for Ingredient" id="searchRecipeInput">
+                    <div class="searchbarBox">
+                        <img src="searchy.png" class="searchImg">
+                    </div>
+                </div>
+            </div>
+            <button class="newButton ignore leftAlignedButton" onclick="openNewIngredientContainer()">+ New Ingredient</button>
+        </div>
+        <div class="dropDownContainer" id="dropDownContainer">
+            <div class="dropDownIngredients" id="dropDownIngredients"></div>
+        </div>
+        <div class="ingredientLibraryTableBox">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ingredient Name</th>
+                            <th>Amount</th>
+                            <th>Price</th>
+                            <th>Store</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="ingredientTable"></tbody>
+                </table>
+        </div>`
+
+        for (let index = 0; index < allIngredients.length; index++) {
+            const eachIngredient = allIngredients[index];
+            console.log(eachIngredient);
+
+            document.getElementById("ingredientTable").innerHTML+=`
+            <tr>
+                <td>${eachIngredient.name}</td>
+                <td>${eachIngredient.amount} ${eachIngredient.unit}</td>
+                <td>$${eachIngredient.price}</td>
+                <td>${eachIngredient.store}</td>
+                <td class="editButton ignore" onclick="editIngredient(${eachIngredient.id})">Edit</td>
+                <td class="deleteButton" onclick="deleteIngredient(${eachIngredient.id})">Delete</td>
+            </tr>`
+        }
+
+        function bindSearch(parentId, isTable = false){
+            let searchInput = document.getElementById("searchRecipeInput");
+            console.log(searchInput);
+            let searchItems = Array.from(document.getElementById(parentId).children);
+
+            let showStyle = 'block';
+            if (isTable){
+                showStyle = 'table-row';
+            }
+
+            searchInput.addEventListener('keyup', function(event){
+                let searchText = event.target.value.toLowerCase();
+                console.log(searchText);
+                
+                searchItems.forEach(function(searchElement){
+                    let cardText = searchElement.innerText.toLowerCase();
+                    if(cardText.includes(searchText)){
+                        searchElement.style.display = showStyle;
+                    } else {
+                        searchElement.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        bindSearch('ingredientTable', true);
+    };
+
+    function backToHomepage(){
+        document.getElementById("ingredientLibraryContainer").style.display="none";
+        document.getElementById("fullRecipePage").style.display="none";
+        document.getElementById("createRecipeContainer").style.display="none";
+        document.getElementById("homepageContainer").style.display="flex";
+
+        printAllRecipesForHomepage();
+        createRecipeHistory();
+    }
+
+    let ingredientId=0
+    function getIngredientInfo(){
+
+        let newIngredientName = document.getElementById("newIngredientName").value;
+        let newIngredientAmount = document.getElementById("newIngredientAmount").value;
+        let newIngredientUnit = document.getElementById("newIngredientUnit").value;
+        let newIngredientPrice = document.getElementById("newIngredientPrice").value;
+        let newIngredientStore = document.getElementById("newIngredientStore").value;
+        
+        ingredientId++
+        console.log(ingredientId);
+
+        let ingredientObject ={
+            name:newIngredientName,
+            amount:newIngredientAmount,
+            unit:newIngredientUnit,
+            price:Number(newIngredientPrice),
+            store:newIngredientStore,
+            id:ingredientId
+        };
+
+        allIngredients.push(ingredientObject);
+        console.log(allIngredients);
+
+        openAllIngredients();
+        document.getElementById("newIngredientModalContainer").style.display="none";
+
+    }
+
+    function deleteIngredient(ingredientId){
+        console.log('well this bit works');
+        let objectPositionInArray = allIngredients.findIndex(ingredient => ingredient.id === ingredientId);
+        console.log(objectPositionInArray);
+        allIngredients.splice(objectPositionInArray,1);
+
+        //deleting ingredient from all recipes its used in
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            console.log(eachRecipe.recipeTitle);
+            if(eachRecipe.ingredients){
+                for (let ingredientIndex = 0; ingredientIndex < eachRecipe.ingredients.length; ingredientIndex++) {
+                    const eachIngredient = eachRecipe.ingredients[ingredientIndex];
+                    console.log(eachIngredient);
+                    if(eachIngredient.ingredientId==ingredientId){
+                        console.log(eachRecipe.recipeTitle, 'has ', eachIngredient.ingredientId);
+                        eachRecipe.ingredients.splice(ingredientIndex,1);
+                    }
+                }
+            }
+        }
+
+        openAllIngredients();
+    }
+
+
+    let lastRecipeId = allRecipes[allRecipes.length-1].id;
+    let currentId= null;
+
+    function openNewRecipePage(clickedId){
+        // currentId = null;
+        document.getElementById("homepageContainer").style.display="none";
+        document.getElementById("fullRecipePage").style.display="none";
+        document.getElementById("createRecipeContainer").style.display="flex";
+        document.getElementById("createRecipeContainer").innerHTML='';
+
+        let recipeTitle = '';
+        let recipeServingSize ='';
+        let recipeTotalTime ='';
+        let recipeMethod ='';
+        let recipeLink ='';
+        console.log(clickedId);
+        if(clickedId!==null){
+            for (let index = 0; index < allRecipes.length; index++) {
+                const eachRecipe = allRecipes[index];
+                console.log(eachRecipe.id);
+                console.log(currentId);
+                console.log('recipe title',eachRecipe.recipeTitle);
+                if(eachRecipe.id==clickedId){
+                    if(eachRecipe.recipeTitle==undefined){
+                        recipeTitle='No Recipe Title';
+                    }else{
+                        recipeTitle = eachRecipe.recipeTitle;
+                    }
+
+                    if(eachRecipe.servings==undefined){
+                        recipeServingSize='None';
+                    }else{
+                        recipeServingSize = eachRecipe.servings;
+                    }
+
+                    if(eachRecipe.totalTime==undefined){
+                        recipeTotalTime='No Time';
+                    }else{
+                        recipeTotalTime = eachRecipe.totalTime;
+                    }
+
+                    if(eachRecipe.method==undefined){
+                        recipeMethod='No Recipe Method';
+                    }else{
+                        recipeMethod = eachRecipe.method;
+                    }
+
+                    if(eachRecipe.recipeLink==undefined){
+                        recipeLink='No Recipe Link';
+                    }else{
+                        recipeLink = eachRecipe.recipeLink;
+                    }
+
+                    currentId = eachRecipe.id;
+                }
+            }
+        }
+        document.getElementById("createRecipeContainer").innerHTML=`
+        <div class="fullRecipeContainer">
+            <div class="recipeContainerBar">
+                <div class="changesSavedBar" id="changesSavedBar">Changes Saved</div>
+            </div>
+            <div class="insideContainerNewRecipeContainer">
+                <div class="newRecipeTitleBox">
+                    <div class="title">
+                        <input type="text" class="title createNewTitleInput inputField" name="recipeTitle" placeholder="Create Recipe Title Here" value="${recipeTitle}">
+                    </div>
+                    <div class="homepageLink" onclick="backToHomepage()">Back to Homepage</div>
+                </div>
+                <div class="recipeContainerMiniInfo">
+                    <div class="miniInfoBox">
+                        <div>Servings: </div>
+                        <div>
+                            <input type="text" class="miniInfoBoxInput inputField" name="servings" placeholder="0" value="${recipeServingSize}">
+                        </div>
+                    </div>
+                    <div class="miniInfoBox">
+                        <div>Total Time: </div>
+                        <div>
+                            <input type="text" class="miniInfoBoxInput time inputField" name="totalTime" placeholder="0hr 00m" value="${recipeTotalTime}">
+                        </div>
+                    </div>
+                </div>
+                <div class="recipeLinkContainer">
+                    <div class="recipeLinkTitle">Recipe Link:</div>
+                    <div>
+                        <input type="text" class="miniInfoBoxInput url inputField" name="recipeLink" placeholder="Enter URL" value="${recipeLink}">
+                    </div>
+                </div>
+                <div class="newRecipeMiddleRow">
+                    <div class="ingredientsTitle">Ingredients:</div>
+                    <div>
+                        <input class="searchRecipeInput" type="text" placeholder="Search from Ingredient Library" id="newRecipeAllIngredients"</div>
+                    </div>
+                </div>
+                <div class="createNewRecipeDropDown" id="createNewRecipeDropDown">
+                    <div class="newRecipeDropdownIngredients" id="newRecipeDropdownIngredients"></div>
+                </div>
+                <div class="duplicateIngredientMessage" id="duplicateIngredientMessage">* Ingredient has already been added to recipe</div>
+                <div class="newRecipeContainerIngredients" id="recipeContainerIngredients"></div>
+                <div class="totalCostRowContainer" id="totalCostRowContainer">
+                    <div class="miniInfoBox price">
+                        <div>Total Cost: $</div>
+                            <div>
+                                <div class="totalCostPriceBox inputField" id="totalCostPriceBox"></div>
+                            </div>
+                    </div>
+                </div>
+                <div class="recipeContainerMethodContainer">
+                    <div class="ingredientsTitle">Method:</div>
+                    <div class="methodContainer">
+                        <textarea placeholder="Write steps here" class="methodInputField inputField" name="method">${recipeMethod}</textarea>
+                    </div>
+                </div>
+                <div class="newRecipeBottomRow">
+                    <div class="newButton ignore" onclick="backToHomepage()">Save Recipe</div>
+                </div>
+            </div>
+        </div>
+        `;
+        sortAndPrintAllRecipeIngredients();
+        calculateTotalPriceAndPrint(currentId);
+
+        const newRecipeInputField = document.querySelectorAll(".inputField")
+
+        newRecipeInputField.forEach(inputField =>{
+            inputField.addEventListener("input",function(){
+                const inputFieldValue = this.value.trim();
+                const inputFieldName = this.name.trim();
+                if(currentId==null){
+          
+                    lastRecipeId = lastRecipeId + 1;
+                    currentId=lastRecipeId;
+                    //create
+                    let ingredientObject={
+                        id:currentId,
+                        [inputFieldName]:inputFieldValue
+                    };
+                    allRecipes.push(ingredientObject);
+                }
+                else{
+                    for (let index = 0; index < allRecipes.length; index++) {
+                        const eachRecipe = allRecipes[index];
+                        if(eachRecipe.id==currentId){
+                            eachRecipe[inputFieldName]=inputFieldValue;
+                        }
+                    }
+                }
+                console.log(allRecipes);
+                
+            })
+
+            inputField.addEventListener("change",function(){
+                let snackBar = document.getElementById("changesSavedBar");
+                snackBar.className ="show";
+
+                setTimeout(function(){
+                    snackBar.className = snackBar.className.replace("show","");
+                },2000);
+            })
+        })
+
+        let searchAllIngredients = document.getElementById('newRecipeAllIngredients');
+
+        searchAllIngredients.addEventListener('keyup', function(event){
+            let searchIngredient = event.target.value.toLowerCase();
+
+            document.getElementById("newRecipeDropdownIngredients").innerHTML="";
+            document.getElementById("createNewRecipeDropDown").style.display="flex";
+
+            let isIngredientMatch = false;
+            for (let index = 0; index < allIngredients.length; index++) {
+                let eachIngredient = allIngredients[index];
+                let ingredientName = eachIngredient.name.toLowerCase();
+                if(ingredientName.includes(searchIngredient)){
+                    document.getElementById("newRecipeDropdownIngredients").innerHTML+=`
+                    <div class="dropdownRow">
+                        <div class="dropdownIngredientRow">
+                            <div class="">${eachIngredient.amount}${eachIngredient.unit}</div>
+                            <div class="" id="dropdownIngredientRowName">${eachIngredient.name}</div>
+                            <div class="">$${eachIngredient.price}</div>
+                            <div class="">${eachIngredient.store}</div>
+                        </div>
+                        <div>
+                            <div class="newRecipeAddIngredient" onclick="addIngredientToNewRecipe('${eachIngredient.id}')">Add Ingredient</div>
+                        </div>
+                    </div>
+                    `;
+                    isIngredientMatch= true;
+                }
+            }
+
+            if(isIngredientMatch==false){
+                let capitalisedSearchIngredient = searchIngredient.charAt(0).toUpperCase() + searchIngredient.slice(1);
+                document.getElementById("newRecipeDropdownIngredients").innerHTML=`
+                <div class="noResultLine">No results of ${capitalisedSearchIngredient}</div>`
+            }
+        });
+       
+    }
+
+
+    function openFullRecipe(recipeId){
+        document.getElementById("homepageContainer").style.display="none";
+        document.getElementById("fullRecipePage").style.display="flex";
+        document.getElementById("fullRecipePage").innerHTML='';
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            if(eachRecipe.id==recipeId){
+
+                //check if recipe contains empty information or not
+                let recipeTitle = 'No Recipe Title';
+                let recipeServings ='No Recipe Servings';
+                let recipeTotalTime ='No Time';
+                let recipeLink ="No Recipe Link";
+                let recipeTotalPrice = 0;
+                if(eachRecipe.recipeTitle){
+                    recipeTitle=eachRecipe.recipeTitle;
+                }
+                if(eachRecipe.servings){
+                    recipeServings=eachRecipe.servings;
+                }
+                if(eachRecipe.totalTime){
+                    recipeTotalTime=eachRecipe.totalTime;
+                }
+                if(eachRecipe.ingredients){
+                    recipeTotalPrice = calculateTotalPrice(eachRecipe.id);
+                }
+                if(eachRecipe.recipeLink){
+                    recipeLink=eachRecipe.recipeLink;
+                }
+                document.getElementById("fullRecipePage").innerHTML=`
+                <div class="fullRecipeContainer">
+                    <div class="recipeContainerBar"></div>
+                    <div class="insideContainerRecipeContainer">
+                        <div class="recipeContainerBottomRow">
+                            <div class="title">${recipeTitle}</div>
+                            <div class="homepageLink" onclick="backToHomepage()">Back to Homepage</div>
+                        </div>
+                        <div class="fullRecipePageInformationBox">
+                            <div class="servingAndTimeBox">
+                                <div class="miniInfoBox">Servings: ${recipeServings}</div>
+                                <div class="miniInfoBox">Total Time: ${recipeTotalTime} </div>
+                                <div id="recipeLinkBox">${recipeLink}</div>
+                            </div>
+                            <div class="cookedTodayContainer">
+                                <div>Cooked Today</div>
+                                <input type="checkbox" class="recipeCookedCheckbox" onclick="updateDateForRecipe(${eachRecipe.id})">
+                            </div>
+                        </div>
+                        <div class="ingredientAndMethodTitle">Ingredients:</div>
+                        <div class="fullRecipeIngredientsAndPriceContainer" id="fullRecipeIngredientsAndPriceContainer"></div>
+                        <div class="totalCostRowContainerForViewingFullRecipe">
+                            <div>
+                                <div class="totalCostPriceBox" id="totalCostPriceBox">Total Cost: $${recipeTotalPrice}</div>
+                            </div>
+                        </div>
+                        <div class="deleteRecipeModalContainer" id="deleteRecipeModalContainer">
+                            <div class="deleteConformationLine">Are you sure you want to delete ${recipeTitle}?</div>
+                            <div class="deleteModalButtonContainer">
+                                <button class="deleteConformationButton" onclick="cancelDeleteModal()">Cancel</button>
+                                <button class="deleteConformationButton deleteBtn" onclick="deleteRecipeFromAllRecipes(${eachRecipe.id})">Delete Recipe</button>
+                            </div>
+                        </div>
+                        <div class="ingredientAndMethodTitle">Method:</div>
+                        <div class="fullRecipeMethodContainer" id="methodContainer"></div>
+                        <div class="recipeContainerButtonPack">
+                            <div>
+                                <button class="addButton ignore" onclick="openEditModal(${eachRecipe.id})">Edit Recipe</button>
+                                <button class="addButton ignore" onclick="openDeleteModal()">Delete Recipe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                if(eachRecipe.recipeLink){
+                    document.getElementById("recipeLinkBox").innerHTML=`
+                    <a href="${recipeLink}" target="_blank" class="recipeLink">View Recipe Link</a>`;
+                }
+
+                if(eachRecipe.ingredients){
+                    let eachIngredientSortedByStore ={};
+                    for (let index = 0; index < eachRecipe.ingredients.length; index++) {
+                        const ingredient = eachRecipe.ingredients[index];
+                        console.log('so this is the ingredient',ingredient);
+                        let ingredientObj = getIngredientObjById(ingredient.ingredientId);
+                        let store = ingredientObj.store; // --> target, tj, etc
+                        let name = ingredientObj.name;
+                        console.log(name,ingredient.ingredientId)
+                
+                        if([store] in eachIngredientSortedByStore){
+                            eachIngredientSortedByStore[store].push(ingredient.ingredientId)
+                        }
+                        else{
+                            eachIngredientSortedByStore[store]=[ingredient.ingredientId];
+                        }
+                        console.log('this is what u get',eachIngredientSortedByStore);
+
+                        document.getElementById("fullRecipeIngredientsAndPriceContainer").innerHTML='';
+
+                        for(const storeName in eachIngredientSortedByStore){
+                            let storeArray = eachIngredientSortedByStore[storeName];
+
+                            document.getElementById("fullRecipeIngredientsAndPriceContainer").innerHTML+=`<div class="storeNameTitle">${storeName}:</div>`;
+                            for (let index = 0; index < storeArray.length; index++) {
+                                const eachIngredientId = storeArray[index];
+                                let ingredientObj = getIngredientObjById(eachIngredientId);
+                                let ingredientObjFromRecipe = getIngredientObjFromRecipeArray(eachRecipe.id,eachIngredientId);
+                                let ingredientPrice = calculatePriceOfIngredient(eachIngredientId,ingredientObjFromRecipe.amountAddedToRecipe);
+                                let style = ingredientObjFromRecipe.style;
+                                if(style==null){
+                                    style='';
+                                }
+                                document.getElementById("fullRecipeIngredientsAndPriceContainer").innerHTML+=`
+                                <div class="ingredientAndPriceContainer">
+                                    <div class="ingredientPriceStyleContainer">
+                                        <div class="ingredientPriceBox1">${ingredientObjFromRecipe.amountAddedToRecipe}${ingredientObj.unit} ${ingredientObj.name}</div>
+                                        <div class="styleBox">, ${style}</div>
+                                    </div>
+                                    <div class="ingredientPriceBox2">$${ingredientPrice}</div>
+                                </div>`;
+                            }
+                        }
+                    }
+                }
+                else{
+                    document.getElementById("fullRecipeIngredientsAndPriceContainer").innerHTML+=`
+                    <div class="noIngredientsInRecipe">No Ingredients In Recipe</div>`;
+                            
+                }
+
+                let method = eachRecipe.method;
+                if(method){
+                    console.log(method);
+                    let methodArray = method.split('\n');
+                    for (let index = 0; index < methodArray.length; index++) {
+                    const eachStep = methodArray[index];
+                    console.log(eachStep)
+                    document.getElementById("methodContainer").innerHTML+=`
+                    <div class="eachStep">${eachStep}</div>
+                    `;
+                }
+                }
+                else{
+                    console.log(method);
+                    document.getElementById("methodContainer").innerHTML+=`
+                    <div class="eachStep">No Method For Recipe</div>
+                    `;
+                }
+
+            }
+        }
+    }
+
+    function editIngredient(ingredientId){
+        document.getElementById("newIngredientModalContainer").style.display="flex";
+        document.getElementById("updateIngredientButton").style.display="flex";
+        document.getElementById("newOrEditIngredientTitle").innerHTML='Edit Ingredient';
+        document.getElementById("updateIngredientButton").innerHTML=`
+        <button id="updateButton" class="updateButton ignore" onclick="updateIngredientInfo(${ingredientId})">Update Ingredient</button>`;
+        document.getElementById("newIngredientButton").style.display="none";
+        
+        allIngredients.forEach(eachIngredient =>{
+            if(eachIngredient.id === ingredientId){
+                document.getElementById("newIngredientName").value = eachIngredient.name;
+                document.getElementById("newIngredientAmount").value = eachIngredient.amount;
+                document.getElementById("newIngredientUnit").value = eachIngredient.unit;
+                document.getElementById("newIngredientPrice").value = eachIngredient.price;
+                document.getElementById("newIngredientStore").value = eachIngredient.store;
+            }
+        });
+    }
+
+    function updateIngredientInfo(id){
+        let newIngredientName = document.getElementById("newIngredientName").value;
+        let newIngredientAmount = document.getElementById("newIngredientAmount").value;
+        let newIngredientUnit = document.getElementById("newIngredientUnit").value;
+        let newIngredientPrice = document.getElementById("newIngredientPrice").value;
+        let newIngredientStore = document.getElementById("newIngredientStore").value;
+
+        for (const ingredientObj of allIngredients) {
+            if (ingredientObj.id === id){
+                ingredientObj.name = newIngredientName;
+                ingredientObj.amount = newIngredientAmount;
+                ingredientObj.unit = newIngredientUnit;
+                ingredientObj.price = newIngredientPrice;
+                ingredientObj.store = newIngredientStore;
+            }
+        }
+
+        console.log("Updated obj is ",allIngredients);
+
+        openAllIngredients();
+        document.getElementById("newIngredientModalContainer").style.display="none";
+    }
+
+    //HOMEPAGE SEARCH FIELD
+    let searchAllRecipes = document.getElementById('searchAllRecipes');
+    // let recipeArray = Array.from(recipes);
+    
+    searchAllRecipes.addEventListener('keyup', function(event){
+        console.log('well this bit works brunk')
+        console.log(event.target.value)
+        let searchTextRecipe = event.target.value.toLowerCase();
+        console.log(searchTextRecipe)
+        //adding recipes variable into the search function bcos it will give you the most updated data right as you need it
+        let recipes = document.querySelectorAll('.recipeContainer'); // Nodelist []
+        
+        //debugging (look up what the recipe is giving yoi e.g. to see what is being passed in)
+        // if(!recipes){
+            
+        // }else{
+        //     console.log(recipes)
+        // }
+
+
+        recipes.forEach(function(recipeElement){
+            console.log("This is",recipeElement);
+            let recipeText = recipeElement.innerText.toLowerCase();
+            if(recipeText.includes(searchTextRecipe)){
+                recipeElement.style.display = 'block';
+            } else {
+                recipeElement.style.display = 'none';
+            }
+        });
+    });
+
+    function addIngredientToNewRecipe(ingredientId){
+        if(currentId==null){
+            lastRecipeId = lastRecipeId + 1;
+            currentId=lastRecipeId;
+
+            let recipeObj={
+                id:currentId,
+                ingredients:[]
+            };
+            
+            allRecipes.push(recipeObj);
+        }
+
+        for (let index = 0; index < allRecipes.length; index++) {
+            const selectedRecipe = allRecipes[index];
+            if(selectedRecipe.id==currentId){
+                document.getElementById("duplicateIngredientMessage").style.display="none";
+
+                console.log(selectedRecipe,'ok bruno')
+                if(!selectedRecipe.hasOwnProperty('ingredients')){
+                    selectedRecipe.ingredients=[];
+                }
+
+                if (selectedRecipe.ingredients.some(e => e.ingredientId === ingredientId)) {
+                    document.getElementById("duplicateIngredientMessage").style.display="flex";
+                    return;
+                    //stops the function so the push code doesn;t happen
+                }       
+                
+                let targetedIngredientObj = getIngredientObjById(ingredientId)
+                let ingredientAmount = targetedIngredientObj.amount;
+
+                let ingredientObj ={
+                    ingredientId:ingredientId,
+                    amountAddedToRecipe: ingredientAmount,
+                    style:null
+                }
+
+                selectedRecipe.ingredients.push(ingredientObj);
+            }
+        }
+        sortAndPrintAllRecipeIngredients();
+        calculateTotalPriceAndPrint(currentId);
+    }
+   
+    function sortAndPrintAllRecipeIngredients(){
+        let ingredientsSortedByStore={};
+
+        for (let index = 0; index < allRecipes.length; index++) {
+            const selectedRecipe = allRecipes[index];
+            console.log(selectedRecipe);
+            if(selectedRecipe.id==currentId){
+                if(selectedRecipe.ingredients){
+                    for (let index = 0; index < selectedRecipe.ingredients.length; index++) {
+                        const singleIngredient = selectedRecipe.ingredients[index];
+                        console.log(singleIngredient,'ppp');
+                        let ingredientId = singleIngredient.ingredientId;
+                        let ingredientObj = getIngredientObjById(ingredientId);
+                        console.log(ingredientObj)
+
+                        let store = ingredientObj.store; // --> target, tj, etc.
+                    
+                        if([store] in ingredientsSortedByStore){
+                            ingredientsSortedByStore[store].push(ingredientId)
+                        }
+                        else{
+                            ingredientsSortedByStore[store]=[ingredientId];
+                        }
+                        console.log(ingredientsSortedByStore);
+                    }
+
+                    document.getElementById("recipeContainerIngredients").innerHTML='';
+
+                    for (const storeName in ingredientsSortedByStore) {
+                        console.log(ingredientsSortedByStore)
+                        console.log(ingredientsSortedByStore[storeName]);
+
+                        let ingredientIdsWithinStore = ingredientsSortedByStore[storeName]; // array with ingredient ids, that have been sorted into the store
+
+                        document.getElementById("recipeContainerIngredients").style.display="flex";
+                        document.getElementById("totalCostRowContainer").style.display="flex";
+                        
+                        document.getElementById("recipeContainerIngredients").innerHTML+=`<div class="storeNameTitle">${storeName}:</div>`;
+                        printIngredientRowsByIdArray(ingredientsSortedByStore[storeName],currentId);
+                    }
+                };
+            }
+
+        }
+
+        bindIngredientEditRows();
+    }
+    
+    function printIngredientRowsByIdArray(allIngredientIds,recipeId){
+        if(allIngredientIds){
+            for (let index = 0; index < allIngredientIds.length; index++){
+                const ingredientId = allIngredientIds[index];
+                console.log('bruv',ingredientId);
+                let ingredientObjFromRecipe = getIngredientObjFromRecipeArray(recipeId,ingredientId);
+                console.log('MATE',ingredientId,ingredientObjFromRecipe.amountAddedToRecipe)
+                let ingredientPrice= calculatePriceOfIngredient(ingredientId,ingredientObjFromRecipe.amountAddedToRecipe);
+                console.log(ingredientPrice);
+                for (const key in allIngredients) {
+                console.log(allIngredients[key],'ingredientess')
+                    if(allIngredients[key].id==ingredientId){
+                        console.log(allIngredients[key].name);
+                        document.getElementById("recipeContainerIngredients").innerHTML+=`
+                        <div class="recipeContainerIngredientRow">
+                            <ul class="newRecipeContainerIngredientContainer">
+                                <li>
+                                <div class="newRecipeIngredientsRow">
+                                    <div class="amountUnitContainer">
+                                        <input type="text" class="amountBox rowInputField" name="amount" value="${ingredientObjFromRecipe.amountAddedToRecipe}" id="amountInputFromRow-${allIngredients[key].id}">
+                                        <div class="">${allIngredients[key].unit}</div>
+                                    </div>
+                                    <div class="newRecipeName">${allIngredients[key].name}</div>
+                                    <div>
+                                        <input type="text" class="styleInputBox rowInputField" name="style" placeholder="'add style'" id="styleInputFromRow-${allIngredients[key].id}">
+                                    </div>
+                                </div>
+                                </li>
+                            </ul>
+                            <div class="recipeContainerIngredientRowEnd">
+                                <div class="" id="ingredientRowPrice-${allIngredients[key].id}">$${ingredientPrice}</div>
+                                <div class="deleteButton delete" onclick="deleteIngredientRow(${recipeId},${ingredientId})">X</div>
+                            </div>
+                        </div>
+                        `;
+                    }
+                }
+            }
+        };
+    }
+
+    function bindIngredientEditRows(){
+        //editing and updating the input values from ingredients row
+        let newRecipeIngredientsInput = document.querySelectorAll(".rowInputField");
+        newRecipeIngredientsInput.forEach(rowInput =>{
+            rowInput.addEventListener("input", function(){
+                const inputRowValue = this.value;
+                const inputRowName = this.name;
+                const inputId = this.id;
+                for (let index = 0; index < allRecipes.length; index++) {
+                    const eachRecipe = allRecipes[index];
+                    if(eachRecipe.id==currentId){
+                        for (let index = 0; index < eachRecipe.ingredients.length; index++) {
+                            const eachIngredientInRecipe = eachRecipe.ingredients[index];
+                            if(inputId.includes(eachIngredientInRecipe.ingredientId)){
+                                if(inputRowName=='amount'){
+                                    console.log(inputRowValue,'valueeee')
+                                    let newAmount = inputRowValue;
+                                    let ingredientObj = getIngredientObjById(eachIngredientInRecipe.ingredientId);
+                                    console.log(eachIngredientInRecipe.ingredientId)
+
+                                    //updating obj and displaying new amount in input field
+                                    eachIngredientInRecipe.amountAddedToRecipe=newAmount;
+
+                                    console.log(eachIngredientInRecipe.ingredientId);
+                                    document.getElementById("amountInputFromRow-"+eachIngredientInRecipe.ingredientId).placeholder=newAmount;
+                                    calculateNewPriceAndUpdateTotalPrice(eachIngredientInRecipe.ingredientId);
+                                }
+                                else{
+                                    eachIngredientInRecipe[inputRowName]=inputRowValue;
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        })
+    }
+
+    function getIngredientObjById(ingredientId){
+        // pass in an ingredient id, and go to all ingredients to find the original object.
+        for (let index = 0; index < allIngredients.length; index++) {
+            const ingredientObject = allIngredients[index];
+            if(ingredientObject.id==ingredientId){
+                return ingredientObject;
+            }
+        }
+        console.log('no ingredient found with the ingredient id of: ', ingredientId)
+        return false;
+    }
+
+    function getIngredientObjFromRecipeArray(recipeId,ingredientId){
+        console.log('recipe id is',recipeId);
+        console.log('ingredient id is', ingredientId);
+        for (let index = 0; index < allRecipes.length; index++) {
+            const recipeObj= allRecipes[index];
+            if(recipeObj.id==recipeId){
+                console.log('this part works');
+                for (let index = 0; index < recipeObj.ingredients.length; index++) {
+                    const ingredientObj = recipeObj.ingredients[index];
+                    if(ingredientObj.ingredientId==ingredientId){
+                        return ingredientObj;
+                    }
+                }
+            }
+        }
+        console.log('no ingredient found with the ingredient id of: ', ingredientId)
+        return false;
+    }
+    
+    function deleteIngredientRow(recipeId,ingredientId){
+        console.log('The Recipe id is',recipeId)
+        console.log('The Ingredient id',ingredientId);
+        for (let recipeIndex = 0; recipeIndex < allRecipes.length; recipeIndex++) {
+            const singleRecipe = allRecipes[recipeIndex];
+            if(singleRecipe.id==recipeId){
+                console.log(singleRecipe,'yeah baby');
+                for (let ingredientIndex = 0; ingredientIndex < singleRecipe.ingredients.length; ingredientIndex++) {
+                    const singleIngredient = singleRecipe.ingredients[ingredientIndex];
+                    console.log(singleIngredient);
+                    if(singleIngredient.ingredientId==ingredientId){
+                        console.log(singleIngredient,'the chosen one',ingredientIndex);
+                        //need to check index in arrary before splice
+                        allRecipes[recipeIndex].ingredients.splice(ingredientIndex,1);
+                        sortAndPrintAllRecipeIngredients()
+                        console.log(allRecipes);
+                    }
+                }
+            }
+        }
+        calculateTotalPriceAndPrint(recipeId);
+    }   
+
+    function calculateNewPriceAndUpdateTotalPrice(ingredientId){
+        console.log(ingredientId);
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            console.log(eachRecipe);
+            if(eachRecipe.id==currentId){
+                for (let index = 0; index < eachRecipe.ingredients.length; index++) {
+                    const eachIngredient = eachRecipe.ingredients[index];
+                    console.log('each ingredient is', eachIngredient)
+                    if(eachIngredient.ingredientId==ingredientId){
+                        let newPrice = calculatePriceOfIngredient(eachIngredient.ingredientId,eachIngredient.amountAddedToRecipe);
+                        document.getElementById("ingredientRowPrice-"+eachIngredient.ingredientId).innerHTML=newPrice;
+
+                    }
+                }
+                calculateTotalPriceAndPrint(eachRecipe.id);
+            }
+        }
+    }
+
+    function calculatePriceOfIngredient(ingredientid,amountAddedToRecipe){
+        let targetedIngredientObj = getIngredientObjById(ingredientid);
+        let originalPrice = targetedIngredientObj.price;
+        let originalAmount = targetedIngredientObj.amount;
+        let newAmountAddedToRecipe = amountAddedToRecipe;
+                        
+        let newPrice = (newAmountAddedToRecipe/originalAmount)*originalPrice;
+        return newPrice.toFixed(2);
+    }
+
+    function calculateTotalPrice(recipeId){
+        let totalPrice =0;
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            console.log(eachRecipe);
+            if(eachRecipe.id==recipeId){
+                if(eachRecipe.ingredients){
+                    for (let index = 0; index < eachRecipe.ingredients.length; index++) {
+                        const eachIngredient = eachRecipe.ingredients[index];
+                        console.log(eachIngredient);
+
+                        let priceOfIngredient = calculatePriceOfIngredient(eachIngredient.ingredientId,eachIngredient.amountAddedToRecipe);
+                        console.log(priceOfIngredient);
+                        totalPrice+=Number(priceOfIngredient);
+                    }
+                }
+            }
+        }
+        console.log(totalPrice);
+        return totalPrice.toFixed(2);
+    }
+
+    function calculateTotalPriceAndPrint(recipeId){
+        let totalPrice = calculateTotalPrice(recipeId);
+        console.log(totalPrice);
+        //add total price to recipe obj
+        document.getElementById("totalCostPriceBox").innerHTML=totalPrice;
+    }
+
+    function printAllRecipesForHomepage(){
+        document.getElementById("allRecipes").innerHTML='';
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            console.log(eachRecipe);
+
+            let recipeTitle='No Recipe Title';
+            let recipeServing = 'No';
+            let recipeTotalTime = 'No Time';
+            let recipeTotalPrice = 0;
+            let lastCreated = 'Never Created'
+            if(eachRecipe.recipeTitle){
+                recipeTitle = eachRecipe.recipeTitle;
+            }
+            if(eachRecipe.servings){
+                recipeServing = eachRecipe.servings;
+            }
+            if(eachRecipe.totalTime){
+                recipeTotalTime = eachRecipe.totalTime;
+            }
+
+            if(eachRecipe.ingredients){
+                let recipeTotalPrice = calculateTotalPrice(eachRecipe.id);
+            }
+
+            if(eachRecipe.lastCreated){
+                lastCreated = eachRecipe.lastCreated;
+            }
+            
+            document.getElementById("allRecipes").innerHTML+=`
+            <div class="recipeContainer">
+                <div class="recipeContainerLine topLine">
+                    <div class="recipeContainerTitle">${recipeTitle}</div>
+                    <div class="seeFullRecipeLink" onclick="openFullRecipe(${eachRecipe.id})">See Full Recipe</div>
+                </div>
+                <div class="recipeContainerLine">
+                    <div class="recipeContainerDate">Last Created: ${lastCreated}</div>
+                </div>
+                <div class="recipeContainerLine endLine">
+                    <div class="recipeContainerSmallBox">
+                        <div class="recipeLogoDiv">
+                            <img class="recipeLogo" src="shopping.png">
+                        </div>
+                        <div>$${recipeTotalPrice}</div>
+                    </div>
+                    <div class="recipeContainerSmallBox">
+                        <div class="recipeLogoDiv">
+                            <img class="recipeLogo" src="room.png">
+                        </div>
+                        <div>${recipeServing} Servings</div>
+                    </div>
+                    <div class="recipeContainerSmallBox">
+                        <div class="recipeLogoDiv">
+                            <img class="recipeLogo" src="clock.png">
+                        </div>
+                        <div>${recipeTotalTime}</div>
+                    </div>
+                </div>
+            </div>
+            `
+        }
+    }
+
+    printAllRecipesForHomepage();
+
+    function openDeleteModal(){
+        document.getElementById("deleteRecipeModal").style.display='flex';
+        document.getElementById("deleteRecipeModalContainer").style.display='flex';
+    }
+
+    function cancelDeleteModal(){
+        document.getElementById("deleteRecipeModal").style.display='none';
+        document.getElementById("deleteRecipeModalContainer").style.display='none';
+    }
+
+    function deleteRecipeFromAllRecipes(recipeId){
+        let recipePositionInArrayOfRecipes = allRecipes.findIndex(recipe => recipe.id === recipeId);
+        console.log(recipePositionInArrayOfRecipes);
+        allRecipes.splice(recipePositionInArrayOfRecipes,1);
+
+        document.getElementById("deleteRecipeModal").style.display='none';
+        document.getElementById("deleteRecipeModalContainer").style.display='none';
+        backToHomepage();
+        printAllRecipesForHomepage();
+    }
+
+    function openEditModal(recipeId){
+        document.getElementById("homepageContainer").style.display="none";
+        document.getElementById("fullRecipePage").style.display="none";
+        document.getElementById("createRecipeContainer").style.display="flex";
+        document.getElementById("createRecipeContainer").innerHTML='';
+
+        openNewRecipePage(recipeId);
+    }
+
+    function updateDateForRecipe(recipeId){
+        let todaysDate = new Date().toLocaleDateString();
+        console.log(recipeId);
+        console.log(todaysDate)
+        //add the new date or update the new date to the obj
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            if(eachRecipe.id==recipeId){
+                if(eachRecipe.hasOwnProperty('lastCreated')){
+                    console.log('recipe has been cooked before',eachRecipe.lastCreated)
+                    eachRecipe.lastCreated=todaysDate;
+                    console.log(allRecipes);
+                    
+                }else{
+                    console.log('recipe has not been created before');
+                    eachRecipe["lastCreated"]=todaysDate;
+                }
+                arrayOfRecipeDates.push(recipeId,todaysDate);
+            }
+        }
+    }
+
+    function getRecipeFromId(recipeId){
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            if(eachRecipe.id==recipeId){
+                return eachRecipe;
+            }
+        }
+    }
+
+    function createRecipeHistory(){
+        document.getElementById("recipeHistoryContents").innerHTML='';
+        let arrayOfRecipeDates=[];
+        for (let index = 0; index < allRecipes.length; index++) {
+            const eachRecipe = allRecipes[index];
+            arrayOfRecipeDates.push([eachRecipe.id,eachRecipe.lastCreated])
+            console.log(arrayOfRecipeDates);
+        }
+
+        arrayOfRecipeDates.sort((a,b)=>{
+            let dateA = new Date(a[1]);
+            let dateB = new Date(b[1]);
+
+            return dateB - dateA;
+            console.log(arrayOfRecipeDates);
+        })
+
+        arrayOfRecipeDates.forEach(index =>{
+            console.log(index[0]);
+            let recipe = getRecipeFromId(index[0]);
+            console.log(recipe.recipeTitle);
+            document.getElementById("recipeHistoryContents").innerHTML+=`
+            <div class="recipeHistoryLine">
+                <div class="recipeName">${recipe.recipeTitle}</div>
+                <div class="recipeDate">${index[1]}</div>
+            </div>`;
+        })
+    }
+
+    createRecipeHistory();
+
+    function openUserLogin(){
+        document.getElementById("loginModalContainer").style.display="flex";
+    }
+</script>
+</body> 
+</html>
