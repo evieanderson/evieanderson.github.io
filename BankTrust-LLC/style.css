@@ -1,0 +1,327 @@
+*{
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.navbar{
+    color: #385A64;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 140px;
+}
+
+.title{
+    font-size: 26px;
+    font-weight: 600px;
+    font-family: "Roboto Slab", serif;
+}
+
+.subtitle{
+    font-size: 12px;
+    font-weight: 400px;
+    font-family: "Roboto Slab", serif;
+}
+
+.nav-area{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link{
+    color: #385A64;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#main-container{
+    margin: 40px 140px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.welcomeline{
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 10px;
+    letter-spacing: 0.03em;
+    color: #303030;
+}
+
+.information-container{
+    margin-top: 30px;
+}
+
+.group-information{
+    color: #484848;
+}
+
+.info-title{
+    color: #385A64;
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+.info-fields{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.label{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width:450px;
+}
+
+.name{
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.inputbox{
+    padding: 10px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.submit-button{
+    background-color: #385A64;
+    border: #385A64 1px solid;
+    border-radius: 50px;
+    color: white;
+    width: 369px;
+    padding: 10px 0px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.error{
+    font-size: 12px;
+    color: red;
+    display: none;
+}
+
+.buttonText{
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.creditCardDiv{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 3px;
+}
+
+.checkboxDiv{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 3px;
+}
+
+.boxTitles{
+    margin-bottom: 5px;
+}
+
+#creditScoreContainer{
+    display: none;
+}
+
+#rejection-container{
+    margin: 50px 160px;
+    display: none;
+}
+
+.reasonForReject{
+    color: #303030;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 20px;
+    letter-spacing: 0.03em;
+}
+
+#approvalContainer{
+    margin: 50px 160px;
+    display: none;
+    flex-direction: column;
+}
+
+#maxAmount{
+    color: #484848;
+    font-family: "Poppins",sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+}
+
+.loanTitle{
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.breakdownPoints{
+    font-family: "Poppins",sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    color: #484848;
+    margin-top: 10px;
+}
+
+.mainHomeContainer{
+    margin: 10px;
+    border: 1px solid #F0F4F5;
+    border-radius: 10px;
+    background-color: #F0F4F5;
+    margin: 0px 140px;
+}
+
+.beginningDiv{
+    display: flex;
+    padding: 50px;
+    gap: 10px;
+}
+
+.infoTopLine{
+    font-size: 35px;
+    margin-top: 15px;
+}
+
+.informationDiv{
+    padding-right: 15px;
+}
+
+.infoMiddleLine{
+    font-size: 17px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pictureDiv{
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.mainPic{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.statsDiv{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 80px;
+    margin-bottom: 50px;
+}
+
+.largeNumberStats{
+    display: flex;
+    color: #385A64;
+    font-size: 80px;
+}
+
+.statsBox{
+    width: 210px;
+}
+
+.secondHomeContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin: 0px 140px;
+
+}
+
+.secondLastTitle{
+    margin: 15px 0px;
+    display: flex;
+}
+
+.secondHomeIconBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px;
+    gap: 30px;
+}
+
+.secondHomeTitle{
+    color: #385A64;
+    font-size: 20px;
+}
+
+.secondMiddleTitle{
+    font-size:35px;
+    margin: 15px 5px;
+}
+
+.icon{
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.iconPic{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.iconAndText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.secondHomeText{
+    font-size: 28px;
+    color: #385A64;
+    margin: 10px 0px;
+}
+
+.footer{
+    background-color: #385A64;
+    padding: 40px;
+    color: white;
+    padding: 50px 140px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footerTitle{
+    font-size: 25px;
+}
+
+.svgBox{
+    font-size: 25px;
+}
+

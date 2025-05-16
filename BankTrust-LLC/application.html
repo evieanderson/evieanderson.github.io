@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Trust LLC</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"></head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-…" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="title-box">
+            <div class="title">Bank Trust LLC</div>
+            <div class="subtitle">a modern regional bank</div>
+        </div>
+        <div class="nav-area">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="application.html">Mortgage Application</a>
+        </div>
+    </div>
+
+    <div id="main-container">
+        <div class="opening">
+            <div class="header">Start New Mortgage Application</div>
+            <div class="welcomeline">Thank you for your interest in Bank Trust LLC consumer mortage program. Please fill out the following form to see what homes you will qualify for!</div>
+        </div>
+
+        <form class="information-container">
+
+            <div class="group-information">
+                <div class="info-title">Personal Info</div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="firstNameDiv" class="name">First Name</label>
+                        <input type="text" id="firstNameDiv" class="inputbox">
+                        <p id="firstname-error" class="error">Please enter a First Name</p>
+                    </div>
+                    <div class="label">
+                        <label for="lastNameDiv" class="name">Last Name</label>
+                        <input type="text" id="lastNameDiv" class="inputbox">
+                        <p id="lastname-error" class="error">Please enter a Last Name</p>
+                    </div>
+                </div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="emailDiv" class="name">Email Address</label>
+                        <input type="email" id="emailDiv" class="inputbox"> 
+                        <p id="email-error" class="error">Please enter a correct Email Address</p>
+                    </div>
+                    <div class="label">
+                        <label for="phoneDiv" class="name">Phone Number</label>
+                        <input type="tel" id="phoneDiv" class="inputbox">
+                        <p id="phone-error" class="error">Please enter a phone number</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group-information">
+                <div class="info-title">Financial Info</div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="gross-ys-div" class="name">Gross Yearly Salary</label>
+                        <input type="text" id="gross-ys-div" class="inputbox">
+                        <p id="gross-ys-error" class="error">Please enter your Gross Yearly Salary</p>
+                    </div>
+                    <div class="label">
+                        <label for="post-tax-ys" class="name">Post Tax Year Salary</label>
+                        <input type="text" id="post-tax-ys" class="inputbox">
+                        <p id="post-tax-error" class="error">Please enter your Post Tax Year Salary</p>
+                    </div>
+                </div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="currentHousingType" class="name">Current Housing Type</label>
+                        <select id="currentHousingType" class="inputbox">
+                            <option value="">Please Select a Housing Type</option>
+                            <option value="option1">I am renting</option>
+                            <option value="option2">I own a home</option>
+                            <option value="option3">I am homeless</option>
+                        </select>
+                        <p id="currentHousingTypeError" class="error">Please enter your Current Housing Type</p>
+                    </div>
+                    <div class="label">
+                        <label for="houseMonthCost" class="name">Housing Monthly Cost</label>
+                        <input type="text" id="houseMonthCost" class="inputbox" required>
+                        <p id="houseMonthCostError" class="error">Please enter your Housing Monthly Cost</p>
+                    </div>
+                </div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="totalAmountSavingDiv" class="name">Total amount in savings</label>
+                        <input type="text" id="totalAmountSavingDiv" class="inputbox" required>
+                        <p id="totalAmountSaveError" class="error">Please enter your total amount in savings</p>
+                    </div>
+                    <div class="label">
+                        <label for="totalAmountAssetDiv" class="name">Total amount in assets</label>
+                        <input type="text" id="totalAmountAssetDiv" class="inputbox" required>
+                        <p id="totalAmountAssetError" class="error">Please enter your total amount in assets</p>
+                    </div>
+                </div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="creditscore-check" class="name">Do you have a credit score?</label>
+                        <div class="creditCardDiv">
+                            <input type="radio" value="yes" id="creditScoreYes" name="creditRadioButton" onclick="showCreditScoreDiv()">
+                            <label for="creditScoreYes" class="buttonText">Yes</label>
+                        </div>
+                        <div class="creditCardDiv">
+                            <input type="radio" value="no" id="creditScoreNo" name="creditRadioButton" onclick="displayCreditScoreDiv()">
+                            <label for="creditScoreNo" class="buttonText">No</label>
+                        </div>
+                        <p id="creditRadioButtonError" class="error">Please choose an option</p>
+                    </div>
+                    <div class="label" id="creditScoreContainer">
+                        <label for="creditScoreDiv" class="name">Credit score</label>
+                        <input type="text" value="680" id="creditScoreDiv" class="inputbox">
+                        <p id="creditScoreError" class="error">Please enter your credit score</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group-information">
+                <div class="info-title">Mortgage Info</div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="goalMonthlyPaymentDiv" class="name">What is your goal monthly payment?</label>
+                        <input type="text" id="goalMonthlyPaymentDiv" class="inputbox" required>
+                        <p id="goalMonthPaymentError" class="error">Please enter your goal monthly payment</p>
+                    </div>
+                    <div class="label">
+                        <label for="goalLoanDurationDiv" class="name">What is your goal loan duration?</label>
+                        <input type="text" id="goalLoanDurationDiv" class="inputbox" required>
+                        <p id="goalLoanDurationError" class="error">Please enter your goal loan duration</p>
+                    </div>
+                </div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="goalLoanRequestAmtDiv" class="name">What is your goal loan request amount?</label>
+                        <input type="text" id="goalLoanRequestAmtDiv" class="inputbox" required>
+                        <p id="goalLoanRequestAmtError" class="error">Please enter your goal loan request amount</p>
+                    </div>
+                    <div class="label">
+                        <label for="goalDownPaymentDiv" class="name">What is your goal down payment?</label>
+                        <input type="text" id="goalDownPaymentDiv" class="inputbox" required>
+                        <p id="goalDownPaymentError" class="error">Please enter your goal down payment</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group-information">
+                <div class="info-title">Additional Info</div>
+                <div class="info-fields">
+                    <div class="label">
+                        <label for="hear-about-us" class="name boxTitles">How did you hear about us?</label>
+                        <div class="checkboxDiv">
+                            <input type="checkbox" id="socialMediaBox" name="socialMediaBox">
+                            <label for="socialMediaBox" class="buttonText">Social Media</label>
+                        </div>
+                        <div class="checkboxDiv">
+                            <input type="checkbox" id="friendReferalBox" name="friendReferalBox">
+                            <label for="friendReferalBox" class="buttonText">Friend Referal</label>
+                        </div>
+                        <div class="checkboxDiv">
+                            <input type="checkbox" id="otherBox" name="otherBox">
+                            <label for="otherBox" class="buttonText">Other</label>
+                        </div>
+                    </div>
+                    <div class="label">
+                        <label for="additionalInfoDiv" class="name">Any additional information?</label>
+                        <textarea id="additionalInfoDiv" class="inputbox"></textarea>
+                    </div>
+                </div>
+    
+            </div>
+
+            <div class="button-container">
+                <button onclick="validateForm()" type="button" class="submit-button">Submit Application</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div id="rejection-container">
+        <div class="reject-box">
+            <div class="header">Sorry, we cannot offer you a loan.</div>
+            <div class="welcomeline">We regret to inform you that based on the information you provided us, your loan application did not meet our approval criteria.</div>
+        </div>
+    </div>
+
+    <div id="approvalContainer">
+        <div class="approval-box">
+            <div class="header">Congratulations, your loan application has been pre-approved!</div>
+            <div id="maxAmountContainer"></div>
+        </div>
+        <div id="breakdownBox">
+        </div>
+    </div>
+
+    <div class="footer">
+        <div></div>
+        <div class="footerTitle">Bank Trust LLC</div>
+        <div class="svgBox">
+            <i class="fa-brands fa-instagram" style="color: #ffffff;"></i>
+            <i class="fa-brands fa-twitter" style="color: #ffffff;"></i>
+            <i class="fa-brands fa-linkedin" style="color: #ffffff;"></i>
+        </div>
+    </div>
+    <script>
+
+        function validateForm(){
+            let errorCounter = 0
+            hideAllErrors();
+                
+            let checkFirstName = document.getElementById("firstNameDiv")
+            if(checkFirstName.value ==""){
+                document.getElementById("firstname-error").style.display = "block";
+                checkFirstName.style.border = '1px red solid';
+                errorCounter++
+            }
+            else{
+                checkFirstName.style.border = '1px green solid';
+            }
+
+            let checkLastName = document.getElementById("lastNameDiv");
+            if(checkLastName.value ==""){
+                document.getElementById("lastname-error").style.display = "block";
+                checkLastName.style.border = '1px red solid';
+                errorCounter++
+            }
+            else{
+                checkLastName.style.border = '1px green solid';
+            }
+
+            let emailDiv = document.getElementById("emailDiv").value;
+            let checkEmail = validateEmail(emailDiv);
+            if(checkEmail ==true){
+                document.getElementById("emailDiv").style.border = '1px green solid';
+            }
+            else{
+                document.getElementById("email-error").style.display = "block";
+                document.getElementById("emailDiv").style.border = '1px red solid';
+                errorCounter++
+            }
+
+            let phoneNumber = document.getElementById("phoneDiv").value;
+            let checkPhoneNumber = validatePhoneNumber(phoneNumber);
+            if(checkPhoneNumber ==true){
+                document.getElementById("phoneDiv").style.border = '1px green solid';
+            }
+            else{
+                document.getElementById("phone-error").style.display = "block";
+                document.getElementById("phoneDiv").style.border = '1px red solid';
+                errorCounter++
+            }
+
+            let grossYearSal = document.getElementById("gross-ys-div").value;
+            let checkGrossYs = numberValidation(grossYearSal);
+            if(checkGrossYs ==true||grossYearSal ==""){
+                document.getElementById("gross-ys-div").style.border = '1px red solid';
+                document.getElementById("gross-ys-error").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("gross-ys-div").style.border = '1px green solid';
+            }
+
+            let postTaxYearSal = document.getElementById("post-tax-ys").value;
+            let checkPostSal = numberValidation(postTaxYearSal);
+            if(checkPostSal ==true|| postTaxYearSal ==""||postTaxYearSal>grossYearSal){
+                document.getElementById("post-tax-ys").style.border = '1px red solid';
+                document.getElementById("post-tax-error").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("post-tax-ys").style.border = '1px green solid';
+            }
+
+            let checkCurrentHouseType = document.getElementById("currentHousingType").value;
+            if(checkCurrentHouseType ==""){
+                document.getElementById("currentHousingType").style.border = '1px red solid';
+                document.getElementById("currentHousingTypeError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("currentHousingType").style.border = '1px green solid';
+            }
+
+            let houseMonthCost = document.getElementById("houseMonthCost").value;
+            let checkHouseMonthCost = numberValidation(houseMonthCost);
+            if(checkHouseMonthCost == true||houseMonthCost ==""){
+                document.getElementById("houseMonthCost").style.border = '1px red solid';
+                document.getElementById("houseMonthCostError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("houseMonthCost").style.border = '1px green solid';
+            }
+
+            let totalAmountSavings = document.getElementById("totalAmountSavingDiv").value;
+            let checkTolAmountSavings = numberValidation(totalAmountSavings);
+            if(checkTolAmountSavings ==true||totalAmountSavings==""){
+                document.getElementById("totalAmountSavingDiv").style.border = '1px red solid';
+                document.getElementById("totalAmountSaveError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("totalAmountSavingDiv").style.border = '1px green solid';
+            }
+
+            let totalAmountAssets = document.getElementById("totalAmountAssetDiv").value;
+            let checkTolAmountAssets = numberValidation(totalAmountAssets);
+            if(checkTolAmountAssets ==true||totalAmountAssets==""){
+                document.getElementById("totalAmountAssetDiv").style.border = '1px red solid';
+                document.getElementById("totalAmountAssetError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("totalAmountAssetDiv").style.border = '1px green solid';
+            }
+
+            let checkedRadioButton = document.querySelector('input[name="creditRadioButton"]:checked');
+            if(checkedRadioButton == null){
+                document.getElementById("creditRadioButtonError").style.display = "block";
+            }
+            else{
+                if(checkedRadioButton.value == "yes"){
+                    let creditScoreValue = document.getElementById("creditScoreDiv").value;
+                    let checkCreditScore = numberValidation(creditScoreValue);
+                    if(checkCreditScore ==true||creditScoreValue==""){
+                        document.getElementById("creditScoreDiv").style.border = '1px red solid';
+                        document.getElementById("creditScoreError").style.display = "block";
+                        errorCounter++
+                    } else{
+                        document.getElementById("creditScoreDiv").style.border = '1px green solid';
+                    }
+                }
+            }
+            
+            let goalMonthlyPayment = document.getElementById("goalMonthlyPaymentDiv").value;
+            let checkGoalMonthPay = numberValidation(goalMonthlyPayment);
+            if(goalMonthlyPayment ==true||goalMonthlyPayment==""){
+                document.getElementById("goalMonthlyPaymentDiv").style.border = '1px red solid';
+                document.getElementById("goalMonthPaymentError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("goalMonthlyPaymentDiv").style.border = '1px green solid';
+            }
+
+            let goalLoanDuration = document.getElementById("goalLoanDurationDiv").value;
+            let checkGoalLoanDuration = numberValidation(goalLoanDuration);
+            if(checkGoalLoanDuration==true||goalLoanDuration==""){
+                document.getElementById("goalLoanDurationDiv").style.border = '1px red solid';
+                document.getElementById("goalLoanDurationError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("goalLoanDurationDiv").style.border = '1px green solid';
+            }
+
+            let goalLoanRequest = document.getElementById("goalLoanRequestAmtDiv").value;
+            let checkGoalLoanRequest = numberValidation(goalLoanRequest);
+            if(checkGoalLoanRequest==true||goalLoanRequest==""){
+                document.getElementById("goalLoanRequestAmtDiv").style.border = '1px red solid';
+                document.getElementById("goalLoanRequestAmtError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("goalLoanRequestAmtDiv").style.border = '1px green solid';
+            }
+
+            let goalDownPayment = document.getElementById("goalDownPaymentDiv").value;
+            let checkGoalDownPay = numberValidation(goalDownPayment);
+            if(checkGoalDownPay==true||goalDownPayment==""){
+                document.getElementById("goalDownPaymentDiv").style.border = '1px red solid';
+                document.getElementById("goalDownPaymentError").style.display = "block";
+                errorCounter++
+            } else{
+                document.getElementById("goalDownPaymentDiv").style.border = '1px green solid';
+            }
+
+            alert(errorCounter)
+            if(errorCounter == 0){
+               handleNextScreen()
+            }
+        }   
+
+        function validatePhoneNumber(number){
+            let regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            if (regex.test(number)) {
+                return true;
+            } else{
+                return false;
+            }
+        }
+        
+        function validateEmail(emailExample){
+            let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (regex.test(emailExample)){
+                return true;
+            } else{
+                return false;
+            }
+        }
+
+        function numberValidation(value){
+            if(isNaN(value)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        function hideAllErrors(){
+            let errors = document.getElementsByClassName("error");
+
+            for (let index = 0; index < errors.length; index++) {
+                const error = errors[index];
+                error.style.display = "none"                
+            }
+        }
+       
+       function showCreditScoreDiv(){
+            document.getElementById("creditScoreContainer").style.display = "flex";
+       }
+
+       function displayCreditScoreDiv(){
+            document.getElementById("creditScoreContainer").style.display = "none";
+       }
+
+       function handleNextScreen(){
+            let noCreditScore = document.querySelector('input[name="creditRadioButton"]:checked').value;
+            let creditScore = document.getElementById("creditScoreDiv").value;
+            let grossYearSalary = document.getElementById("gross-ys-div").value;
+
+            let totalSavings = document.getElementById("totalAmountSavingDiv").value;
+            let totalAssets = document.getElementById("totalAmountAssetDiv").value;
+            let totalSavingsnAssets = Number(totalSavings) + Number(totalAssets);
+
+            let postTaxSalary = document.getElementById("post-tax-ys").value;
+            let currentHousing = document.getElementById("currentHousingType").value;
+            let housingMonthCost = document.getElementById("houseMonthCost").value;
+
+            document.getElementById("main-container").style.display = "none"; 
+
+            if(noCreditScore =="no"||creditScore<650){
+                document.getElementById("rejection-container").style.display = "flex";
+            }
+            else if(grossYearSalary<25000 && totalSavingsnAssets<1000){
+                document.getElementById("rejection-container").style.display = "flex";
+            }
+            else if(postTaxSalary<20000 && totalSavingsnAssets<10000){
+                document.getElementById("rejection-container").style.display = "flex";
+            }
+            else if(currentHousing =="I am homeless"){
+                document.getElementById("rejection-container").style.display = "flex";
+            }
+            else if(housingMonthCost<100){
+                document.getElementById("rejection-container").style.display = "flex";
+            }
+            else{
+                document.getElementById("approvalContainer").style.display = "flex";
+                createApprovalContent()
+            }
+       }
+    
+
+       function createApprovalContent(){
+            let downpayment = document.getElementById("goalDownPaymentDiv").value;
+            document.getElementById("maxAmountContainer").innerHTML = `<div id="maxAmount">Max Loan Amount: ${calculateMaxLoanAmount()}</div>`;
+            document.getElementById("breakdownBox").innerHTML = `
+            <div class="loanTitle">Loan Breakdown</div>
+            <div class="breakdownPoints">Custom Interest Rate: ${calculateInterestRate()}%</div>
+            <div class="breakdownPoints">Montly payment with downpayment: ${mortgagePayment(0)}</div>
+            <div class="breakdownPoints">Monthly payment without downpayment: ${mortgagePayment(downpayment)}</div>`
+       }
+
+       function calculateMaxLoanAmount(){
+            let totalSavings = document.getElementById("totalAmountSavingDiv").value;
+            let totalAssets = document.getElementById("totalAmountAssetDiv").value;
+            let totalSavingsnAssets = Number(totalSavings) + Number(totalAssets);
+            let postTaxSalary = document.getElementById("post-tax-ys").value;
+
+            let principleLoanAmount = (totalSavingsnAssets)+6+3.25*(postTaxSalary)
+            return principleLoanAmount;
+       }
+
+       function calculateInterestRate(){
+            let creditScore = document.getElementById("creditScoreDiv").value;
+            let interestRate = 6.5+(1-creditScore/850);
+            return interestRate;
+       }
+
+       function mortgagePayment(offset){
+            let principleLoanAmount = calculateMaxLoanAmount();
+            let interestRate = calculateInterestRate()/12/100;
+            let loanDuration = document.getElementById("goalLoanDurationDiv").value;
+
+            let x = (1+interestRate)**loanDuration;
+            let monthlyMorgagePayment = (principleLoanAmount-offset)*(interestRate)*x/(x-1)
+            return Number(monthlyMorgagePayment).toFixed(2);
+       }
+    </script>
+</body>
