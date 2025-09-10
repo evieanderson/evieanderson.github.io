@@ -23,24 +23,6 @@
     <script>
         let snippets = [
             {
-                title: 'Basic for Loop',
-                explanation: 'This is used to loop through an array',
-                snippetEx: `
-                for(let index = 0; index < numbersArray.length; index++) {
-                        const number = array[index];
-                    }`,
-                id: 's1'
-            },
-            {
-                title: 'Easy For Loop',
-                explanation: 'This is used to loop through in an easy way',
-                snippetEx: `
-                for(numbers of numbers){
-                    console.log(number)
-                }`,
-                id: 's2'
-            },
-            {
                 title: 'Validate a Phone Number',
                 explanation: 'Function to validate a phone number with brackets or dashes',
                 snippetEx: `
@@ -52,7 +34,7 @@
                             return false;
                         }
                     }`,
-                id: 's3'
+                id: 's1'
             },
             {
                 title: 'Validate an email',
@@ -66,7 +48,7 @@
                         return false;
                     }
                 }`,
-                id: 's4'
+                id: 's2'
             },
             {
                 title: 'JQuery append function',
@@ -74,7 +56,7 @@
                 snippetEx: `
                 $("#id").append()
                 `,
-                id: 's6'
+                id: 's3'
             },
             {
                 title: 'JQuery hide function',
@@ -82,7 +64,7 @@
                 snippetEx: `
                 $("#id").hide()
                 `,
-                id: 's7'
+                id: 's4'
             },
             {
                 title: 'Copy Function',
@@ -92,21 +74,90 @@
                     let content = document.getElementById(target).innerHTML
                     navigator.clipboard.writeText(content)
                 }`,
-                id: 's8'
+                id: 's5'
             },
             {
-                title: 'Ajax call to server',
-                explanation: 'Access data from the server asynchronously',
+                title: 'Dynamic search filter for list or table elements',
+                explanation: 'Function enables live search filtering for child elements of a parent container. It shows or hides elements based on text matches.',
+                snippetEx:`
+                function bindSearch(parentId, isTable = false){
+                    let searchInput = document.getElementById("searchRecipeInput");
+                    console.log(searchInput);
+                    let searchItems = Array.from(document.getElementById(parentId).children);
+
+                    let showStyle = 'block';
+                    if (isTable){
+                        showStyle = 'table-row';
+                    }
+
+                    searchInput.addEventListener('keyup', function(event){
+                        let searchText = event.target.value.toLowerCase();
+                        console.log(searchText);
+                        
+                        searchItems.forEach(function(searchElement){
+                            let cardText = searchElement.innerText.toLowerCase();
+                            if(cardText.includes(searchText)){
+                                searchElement.style.display = showStyle;
+                            } else {
+                                searchElement.style.display = 'none';
+                            }
+                        });
+                    });
+                };
+
+                bindSearch('ingredientTable', true);
+                `,
+                id: 's6'
+            },
+            {
+                title: 'Checking if a date is within the past "x" days',
+                explanation: 'Function checks whether a given date falls within the given conditions.',
+                snippetEx: `
+                function isWithinPastDays(targetDate, numDays) {
+                    const now = new Date();
+                    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    const pastDate = new Date(today.getTime() - (numDays * 24 * 60 * 60 * 1000));
+
+                    const parsedDate = new Date(targetDate);
+                    const dateOnly = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
+
+                    return dateOnly >= pastDate && dateOnly <= today;
+                }`,
+                id: 's7'
+            },
+            {
+                title: 'Ajax GET request',
+                explanation: 'Request to the database to retrieve information',
                 snippetEx: `
                 $.ajax({
                     url: "https://mbouldo.com/evie/fitness.php",
                     type: 'GET',
                     dataType: 'json', // added data type
                     success: function(response) {
-                    enteries = response;
+                        console.log("Success:", response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", status, error);
                     }
                 })`,
-                id: 's9'
+                id: 's8'
+            },
+            {
+                title: 'Ajax POST request',
+                explanation: 'Request to the database to put information into the database',
+                snippetEx: `
+                $.ajax({
+                    url: "phpFile",
+                    type: 'POST',
+                    dataType: 'json', // added data type
+                    success: function(response) {
+                        console.log("Success:", response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", status, error);
+                    }
+                })`,
+                id: 's9' 
             },
             {
                 title: 'Find PHP errors',
@@ -155,7 +206,7 @@
                 title: 'Post Form',
                 explanation: 'Used to post form into given database',
                 snippetEx: `
-                form id="form" action="https://mbouldo.com/evie/new/create_new_entry.php" method="POST"
+                form id="form" action="https://fileName.extension" method="POST"
                 `,
                 id: 's15'
             },
@@ -166,7 +217,7 @@
                 $host = "localhost";
                 $user = "devUser";
                 $pass = 'password';
-                $db='database';
+                $db='databaseName';
 
                 try {
                 $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
